@@ -19,6 +19,7 @@ import DefaultLayout from './layout/DefaultLayout';
 import RequireAuth from './layout/RequireAuth';
 import Unauthorized from './components/Authentication/Unauthorized';
 import MissingPage from './layout/MissingPage';
+import Dashboard from './pages/Dashboard/Dashboard';
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -48,12 +49,12 @@ function App() {
 
         <Route element={<DefaultLayout />}>
           <Route element={<RequireAuth allowedRoles={[1]}/>}>
-            <Route path="/dashboard" element={<ECommerce />} />
+            <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/create-property" element={<FormElements />} />
           </Route>
 
           <Route element={<RequireAuth allowedRoles={[2]}/>}>
-            <Route path="/dashboard" element={<ECommerce />} />
+            <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/paid" element={<Calendar />} />
           </Route>
 
