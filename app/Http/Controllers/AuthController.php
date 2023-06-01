@@ -11,6 +11,34 @@ class AuthController extends Controller
 {
     use ApiResponse;
 
+    /**
+     * Authentication
+     * @OA\Post(
+     *      path="/api/login",
+     *      tags={"Auth"},
+     *      summary="User login",
+     *      description="User provides credentials to log in to the system",
+     * 
+     *      @OA\RequestBody(
+     *         required=true,
+     *          @OA\JsonContent(
+     *              required={"email","password"},
+     *              @OA\Property(property="email", type="string", example="email"),
+     *              @OA\Property(property="password", type="string", example="password"),
+     *          ),
+     *      ),
+     * 
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *       ),
+     * 
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      )
+     *     )
+     */
     public function login(LoginRequest $request)
     {
         $credentials = $request->validated();
