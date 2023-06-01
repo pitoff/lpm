@@ -13,13 +13,14 @@ import Settings from './pages/Settings';
 import Tables from './pages/Tables';
 import Alerts from './pages/UiElements/Alerts';
 import Buttons from './pages/UiElements/Buttons';
-import Login from './components/Authentication/Login';
+import Login from './pages/Authentication/Login';
 import AuthLayout from './layout/AuthLayout';
 import DefaultLayout from './layout/DefaultLayout';
 import RequireAuth from './layout/RequireAuth';
-import Unauthorized from './components/Authentication/Unauthorized';
+import Unauthorized from './pages/Authentication/Unauthorized';
 import MissingPage from './layout/MissingPage';
 import Dashboard from './pages/Dashboard/Dashboard';
+import CreatePropertyType from './pages/PropertyType/CreatePropertyType'
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -48,14 +49,22 @@ function App() {
         </Route>
 
         <Route element={<DefaultLayout />}>
+          {/* Admin/landlord */}
           <Route element={<RequireAuth allowedRoles={[1]}/>}>
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/create-property" element={<FormElements />} />
+            <Route path="/property-type" element={<CreatePropertyType />} />
+            <Route path="/properties" element={<Profile />} />
+            <Route path="/occupants" element={<Profile />} />
           </Route>
 
+          {/* occupants */}
           <Route element={<RequireAuth allowedRoles={[2]}/>}>
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/paid" element={<Calendar />} />
+            <Route path="/rent-history" element={<Dashboard />} />
+          </Route>
+
+          {/* Admin and occupants */}
+          <Route element={<RequireAuth allowedRoles={[1,2]}/>}>
+            <Route path="/" element={<Dashboard />} />
+            <Route path="/profile" element={<Profile />} />
           </Route>
 
           <Route path='unauthorized' element={<Unauthorized />} />
@@ -65,7 +74,7 @@ function App() {
         {/* catch all  */}
         <Route path='*' element={<MissingPage />} />
 
-        <Route path="/" element={<ECommerce />} />
+        <Route path="/ecommerce" element={<ECommerce />} />
         <Route path="/calendar" element={<Calendar />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/forms/form-elements" element={<FormElements />} />
