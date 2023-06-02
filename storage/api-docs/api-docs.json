@@ -12,14 +12,14 @@
         }
     ],
     "paths": {
-        "/api/login": {
+        "/login": {
             "post": {
                 "tags": [
                     "Auth"
                 ],
                 "summary": "User login",
                 "description": "User provides credentials to log in to the system",
-                "operationId": "a3b306d14572d1f4bd6c064b3233e7b8",
+                "operationId": "2dd578ff7aba2721293dac66833b27d1",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -61,13 +61,20 @@
                 ],
                 "summary": "List of property type",
                 "description": "Returns list of property types",
-                "operationId": "72e9393ec622285c08c70e4f79b56836",
+                "operationId": "getPropertyTypeList",
                 "responses": {
                     "200": {
-                        "description": "Successful operation"
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PropertyTypeResource"
+                                }
+                            }
+                        }
                     },
                     "401": {
-                        "description": "Unauthorized"
+                        "description": "Unauthenticated"
                     },
                     "403": {
                         "description": "Forbidden"
@@ -123,6 +130,109 @@
                     }
                 ]
             }
+        },
+        "/property-type/{id}": {
+            "put": {
+                "tags": [
+                    "Property Type"
+                ],
+                "summary": "Update existing property type",
+                "description": "Returns updated property type data",
+                "operationId": "updateProperyType",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Property type id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PropertyTypeRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "202": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PropertyType"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Property Type"
+                ],
+                "summary": "delete existing property type",
+                "description": "Deletes record and returns no content",
+                "operationId": "deleteProperyType",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Project id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            }
         }
     },
     "components": {
@@ -153,7 +263,7 @@
                 "title": "Property type Resource",
                 "description": "Property type resource",
                 "properties": {
-                    "": {
+                    "data": {
                         "title": "Data",
                         "description": "Data wrapper",
                         "type": "array",
