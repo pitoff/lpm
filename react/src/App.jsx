@@ -21,6 +21,8 @@ import Unauthorized from './pages/Authentication/Unauthorized';
 import MissingPage from './layout/MissingPage';
 import Dashboard from './pages/Dashboard/Dashboard';
 import CreatePropertyType from './pages/PropertyType/CreatePropertyType'
+import CreateOccupant from './pages/Occupants/CreateOccupant';
+import Occupants from './pages/Occupants/Occupants';
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -52,8 +54,9 @@ function App() {
           {/* Admin/landlord */}
           <Route element={<RequireAuth allowedRoles={[1]}/>}>
             <Route path="/property-type" element={<CreatePropertyType />} />
-            <Route path="/properties" element={<Profile />} />
-            <Route path="/occupants" element={<Profile />} />
+            <Route path="/create-occupants" element={<CreateOccupant />} />
+            <Route path="/occupants" element={<Occupants />} />
+            <Route path="/assign-space" element={<Profile />} />
           </Route>
 
           {/* occupants */}

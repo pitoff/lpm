@@ -179,7 +179,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen, logout }) => {
                 {/* <!-- Menu Item Forms --> */}
                 <SidebarLinkGroup
                     activeCondition={
-                    pathname === '/forms' || pathname.includes('forms')
+                    pathname === '/occupants' || pathname.includes('occupants')
                     }
                 >
                     {(handleClick, open) => {
@@ -188,8 +188,8 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen, logout }) => {
                         <NavLink
                             to="#"
                             className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
-                            (pathname === '/forms' ||
-                                pathname.includes('forms')) &&
+                            (pathname === '/occupants' ||
+                                pathname.includes('occupants')) &&
                             'bg-graydark dark:bg-meta-4'
                             }`}
                             onClick={(e) => {
@@ -256,7 +256,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen, logout }) => {
                             <ul className="mt-4 mb-5.5 flex flex-col gap-2.5 pl-6">
                             <li>
                                 <NavLink
-                                to="/forms/form-elements"
+                                to="/create-occupants"
                                 className={({ isActive }) =>
                                     'group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white ' +
                                     (isActive && '!text-white')
@@ -267,7 +267,18 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen, logout }) => {
                             </li>
                             <li>
                                 <NavLink
-                                to="/forms/form-layout"
+                                to="/occupants"
+                                className={({ isActive }) =>
+                                    'group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white ' +
+                                    (isActive && '!text-white')
+                                }
+                                >
+                                View Occupants
+                                </NavLink>
+                            </li>
+                            <li>
+                                <NavLink
+                                to="/assign-space"
                                 className={({ isActive }) =>
                                     'group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white ' +
                                     (isActive && '!text-white')
