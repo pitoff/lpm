@@ -14,7 +14,7 @@ class AuthController extends Controller
     /**
      * Authentication
      * @OA\Post(
-     *      path="/api/login",
+     *      path="/login",
      *      tags={"Auth"},
      *      summary="User login",
      *      description="User provides credentials to log in to the system",

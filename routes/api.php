@@ -21,7 +21,7 @@ Route::middleware('auth:sanctum')->group(function() {
     Route::get('/verify-user', [AuthController::class, 'verifyUser']);
 
     //property type
-    Route::apiResource('property-type', PropertyTypeController::class);
+    Route::apiResource('/property-type', PropertyTypeController::class);
 
     //occupant
 });
