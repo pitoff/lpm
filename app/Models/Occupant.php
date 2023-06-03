@@ -8,4 +8,20 @@ use Illuminate\Database\Eloquent\Model;
 class Occupant extends Model
 {
     use HasFactory;
+
+    public $fillable = [
+        'user_id',
+        'space_id',
+        'phone_no',
+        'gender',
+        'marital_status',
+        'year_in',
+        'year_out',
+        'image_url'
+    ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

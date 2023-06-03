@@ -19,8 +19,10 @@ const CreatePropertyType = () => {
     }, [])
 
     const getPropertyTypes = async () => {
+        setLoading(true)
         await axiosInstance.get(`property-type`)
             .then(({ data }) => {
+                setLoading(false)
                 console.log(data)
                 setPropertyTypes(data.data)
             }).catch((err) => {

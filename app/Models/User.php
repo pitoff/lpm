@@ -49,5 +49,10 @@ class User extends Authenticatable
     public CONST ADMIN = 1;
     public CONST OCCUPANT = 2;
 
+    public function occupant()
+    {
+        return $this->belongsTo(Occupant::class);
+    }
+
 
 }

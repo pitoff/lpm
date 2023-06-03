@@ -16,8 +16,12 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained();
             $table->unsignedBigInteger('space_id')->nullable();
             $table->foreign('space_id')->references('id')->on('spaces');
+            $table->string('phone_no');
+            $table->string('gender');
+            $table->string('marital_status');
             $table->string("year_in")->nullable();
             $table->string("year_out")->nullable();
+            $table->string('image_url')->nullable();
             $table->timestamps();
         });
     }
