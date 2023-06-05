@@ -45,4 +45,9 @@ class PropertyType extends Model
         'name',
         'description',
     ];
+
+    public function property()
+    {
+        return $this->belongsTo(Property::class);
+    }
 }

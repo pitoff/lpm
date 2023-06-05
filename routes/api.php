@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\OccupantController;
+use App\Http\Controllers\PropertyController;
 use App\Http\Controllers\PropertyTypeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -26,6 +27,8 @@ Route::middleware('auth:sanctum')->group(function() {
 
     //occupant
     Route::apiResource('/occupant', OccupantController::class);
+
+    Route::apiResource('/property', PropertyController::class);
 });
 
 Route::post('/login', [AuthController::class, 'login']);
