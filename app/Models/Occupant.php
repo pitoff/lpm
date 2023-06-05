@@ -17,7 +17,7 @@ class Occupant extends Model
         'marital_status',
         'year_in',
         'year_out',
-        'image_url'
+        'image'
     ];
 
     public function user()

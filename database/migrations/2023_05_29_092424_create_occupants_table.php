@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('marital_status');
             $table->string("year_in")->nullable();
             $table->string("year_out")->nullable();
-            $table->string('image_url')->nullable();
+            $table->string('image')->nullable();
             $table->timestamps();
         });
     }

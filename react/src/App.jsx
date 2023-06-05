@@ -55,6 +55,7 @@ function App() {
           <Route element={<RequireAuth allowedRoles={[1]}/>}>
             <Route path="/property-type" element={<CreatePropertyType />} />
             <Route path="/create-occupants" element={<CreateOccupant />} />
+            <Route path="/create-occupants/:id" element={<CreateOccupant />} />
             <Route path="/occupants" element={<Occupants />} />
             <Route path="/assign-space" element={<Profile />} />
           </Route>
