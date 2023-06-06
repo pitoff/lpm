@@ -14,7 +14,8 @@ class Property extends Model
         'p_name',
         'num_of_space',
         'p_desc',
-        'p_state',
+        'state_id',
+        'lga_id',
         'p_city',
         'p_address',
         'p_image',
@@ -26,6 +27,16 @@ class Property extends Model
     public function propertyType()
     {
         return $this->belongsTo(PropertyType::class);
+    }
+
+    public function state()
+    {
+        return $this->belongsTo(State::class);
+    }
+
+    public function lga()
+    {
+        return $this->belongsTo(LGA::class);
     }
 
 }

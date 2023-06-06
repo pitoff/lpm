@@ -7,6 +7,24 @@ import Loader from '../../components/Loader/Loader';
 import { Link } from 'react-router-dom';
 
 const Properties = () => {
+
+    const [propertyList, setPropertyList] = useState([])
+    const [loading, setLoading] = useState(false)
+
+    useEffect(() => {
+        getProperties()
+    }, [])
+
+    const getProperties = async() => {
+        await axiosInstance.get(`property`)
+        .then(({data}) => {
+            console.log("prop data", data.data)
+            setPropertyList(data.data)
+        }).catch((err) => {
+            console.log(err)
+        })
+    }
+
     return (
         <>
             <Breadcrumb pageName="My Properties" />
@@ -36,6 +54,9 @@ const Properties = () => {
                                     Property
                                 </th>
                                 <th className="min-w-[150px] py-4 px-4 font-medium text-black dark:text-white">
+                                    Type
+                                </th>
+                                <th className="min-w-[150px] py-4 px-4 font-medium text-black dark:text-white">
                                     Description
                                 </th>
                                 <th className="min-w-[150px] py-4 px-4 font-medium text-black dark:text-white">
@@ -52,24 +73,27 @@ const Properties = () => {
                                 </th>
                             </tr>
                         </thead>
-                        {/* {loading && <Loader />}
-                        {!loading && */}
+                        {loading && <Loader />}
+                        {!loading &&
                             <tbody>
-                                {/* {occupantList && occupantList.map((occupant, index) => ( */}
-                                    <tr>
+                                {propertyList && propertyList.map((property, index) => (
+                                    <tr key={property.id}>
                                         <td className="border-b border-[#eee] py-5 px-4 pl-9 dark:border-strokedark xl:pl-11">
-                                            {/* {index + 1} */} 1
+                                            {index + 1}
                                         </td>
                                         <td className="border-b border-[#eee] py-5 px-4 pl-9 dark:border-strokedark xl:pl-11">
                                             <h5 className="font-medium text-black dark:text-white">
-                                                Nwalie One Storey
+                                                {property.p_name}
                                             </h5>
                                         </td>
                                         <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                                            <p className="text-black dark:text-white">offodile nwalie compund</p>
+                                            <p className="text-black dark:text-white">{property.property_type_id}</p>
                                         </td>
                                         <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                                            <p className="text-black dark:text-white">1</p>
+                                            <p className="text-black dark:text-white">{property.p_desc}</p>
+                                        </td>
+                                        <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+                                            <p className="text-black dark:text-white">{property.num_of_space}</p>
                                         </td>
                                         {/* <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                                             <p className="text-black dark:text-white">Bungalow Property A</p>
@@ -98,9 +122,9 @@ const Properties = () => {
                                             </div>
                                         </td>
                                     </tr>
-                                {/* ))} */}
+                                ))}
                             </tbody>
-                        {/* } */}
+                        }
                     </table>
                 </div>
             </div>

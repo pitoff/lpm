@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\OccupantController;
 use App\Http\Controllers\PropertyController;
 use App\Http\Controllers\PropertyTypeController;
+use App\Http\Controllers\StateLgaController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -28,7 +29,12 @@ Route::middleware('auth:sanctum')->group(function() {
     //occupant
     Route::apiResource('/occupant', OccupantController::class);
 
+    //property
     Route::apiResource('/property', PropertyController::class);
+
+    //state and lga
+    Route::get('/states', [StateLgaController::class, 'states']);
+    Route::get('/lga/{id}', [StateLgaController::class, 'lgas']);
 });
 
 Route::post('/login', [AuthController::class, 'login']);

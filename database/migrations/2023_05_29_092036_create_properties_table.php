@@ -17,8 +17,11 @@ return new class extends Migration
             $table->string('p_name');
             $table->integer('num_of_space');
             $table->longText('p_desc');
-            $table->string('p_state');
-            $table->string('p_lga');
+            $table->unsignedBigInteger('state_id');
+            $table->foreign('state_id')->references('id')->on('states');
+            $table->unsignedBigInteger('lga_id');
+            $table->foreign('lga_id')->references('id')->on('l_g_a_s');
+            $table->string('p_city');
             $table->string('p_address');
             $table->string('p_image')->nullable();
             $table->integer('created_by')->nullable();

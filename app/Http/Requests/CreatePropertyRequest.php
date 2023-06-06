@@ -22,11 +22,12 @@ class CreatePropertyRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'property_type_id' => 'required|string',
+            'property_type_id' => 'required',
             'p_name' => 'required|string',
             'num_of_space' => 'required|numeric',
-            'p_desc' => 'required|string',
-            'p_state' => 'required',
+            'p_desc' => 'required',
+            'state_id' => 'required',
+            'lga_id' => 'required',
             'p_city' => 'required|string',
             'p_address' => 'required|string',
             'p_image' => 'nullable',

@@ -22,6 +22,8 @@ class DatabaseSeeder extends Seeder
         $this->call([
             UserSeeder::class,
             PropertyTypeSeeder::class,
+            StateSeeder::class,
+            LGASeeder::class,
         ]);
     }
 }
