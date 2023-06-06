@@ -99,7 +99,13 @@ const CreateOccupant = () => {
 
   return (
     <>
-      <Breadcrumb pageName="New Occupant" />
+      {id &&
+        <Breadcrumb pageName="Edit Occupant" />
+      }
+
+      {!id &&
+        <Breadcrumb pageName="New Occupant" />
+      }
 
       <div className="flex">
         <div className="w-full m-4">
@@ -107,9 +113,17 @@ const CreateOccupant = () => {
           <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
             <div className="flex flex-col md:flex-row md:justify-between border-b border-stroke py-4 px-6.5 dark:border-strokedark">
               <div>
-                <h3 className="flex font-medium text-black dark:text-white">
-                  <PencilSquareIcon className='h-6 w-6' /> Create New Occupant
-                </h3>
+                {id &&
+                  <h3 className="flex font-medium text-black dark:text-white">
+                    <PencilSquareIcon className='h-6 w-6' /> Edit Occupant
+                  </h3>
+                }
+                {!id &&
+                  <h3 className="flex font-medium text-black dark:text-white">
+                    <PencilSquareIcon className='h-6 w-6' /> Create New Occupant
+                  </h3>
+                }
+
               </div>
 
               <div className='my-2 md:my-0'>

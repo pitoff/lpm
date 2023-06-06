@@ -25,6 +25,7 @@ import CreateOccupant from './pages/Occupants/CreateOccupant';
 import Occupants from './pages/Occupants/Occupants';
 import Properties from './pages/Property/Properties';
 import CreateProperty from './pages/Property/CreateProperty';
+import CreateSpace from './pages/Space/CreateSpace';
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -61,6 +62,8 @@ function App() {
             <Route path="/occupants" element={<Occupants />} />
             <Route path="/create-property" element={<CreateProperty />} />
             <Route path="/properties" element={<Properties />} />
+            <Route path='/property-edit/:id' element={<CreateProperty />} />
+            <Route path="/create-space" element={<CreateSpace />} />
             <Route path="/assign-space" element={<Profile />} />
           </Route>
 

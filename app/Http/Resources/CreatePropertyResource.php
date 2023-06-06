@@ -17,15 +17,16 @@ class CreatePropertyResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'property_type_id' => $this->propertyType->name,
+            'property_type_id' => $this->propertyType->id,
+            'property_type_name' => $this->propertyType->name,
             'p_name' => $this->p_name,
             'num_of_space' => $this->num_of_space,
             'p_desc' => $this->p_desc,
-            'state_id' => $this->state->state,
-            'lga_id' => $this->lga->lga,
+            'state_id' => $this->state->id,
+            'lga_id' => $this->lga->id,
             'p_city' => $this->p_city,
             'p_address' => $this->p_address,
-            'p_image' => $this->p_image ? URL::to($this->image) : null,
+            'image_url' => $this->p_image ? URL::to($this->p_image) : null,
         ];
     }
 }

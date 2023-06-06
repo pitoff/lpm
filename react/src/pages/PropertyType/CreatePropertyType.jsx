@@ -27,6 +27,7 @@ const CreatePropertyType = () => {
                 setPropertyTypes(data.data)
             }).catch((err) => {
                 console.log(err)
+                setLoading(false)
             })
     }
 

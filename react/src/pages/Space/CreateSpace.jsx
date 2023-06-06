@@ -6,123 +6,34 @@ import Loader from '../../components/Loader/Loader';
 import axiosInstance from '../../axios';
 import { toast } from 'react-toastify'
 
-const CreateProperty = () => {
-    const [loading, setLoading] = useState(false)
-    const [propertyTypes, setPropertyTypes] = useState([])
-    const [states, setStates] = useState([])
-    const [lgas, setLgas] = useState([])
-    const { id } = useParams()
-    const navigate = useNavigate()
+const CreateSpace = () => {
 
-    const [propertyData, setPropertyData] = useState({
-        property_type_id: '',
-        p_name: '',
-        p_desc: '',
-        num_of_space: '',
-        state_id: '',
-        lga_id: '',
-        p_city: '',
-        p_address: '',
-        p_image: '',
-        image_url: ''
-    })
+    const [propertyList, setPropertyList] = useState([]);
+    const [loading, setLoading] = useState(false)
 
     useEffect(() => {
-        getPropertyTypeList()
-        getStates()
-        if (id) {
-            setLoading(true)
-            axiosInstance.get(`/property/${id}`)
-                .then(({ data }) => {
-                    console.log("data", data)
-                    setPropertyData(data.data)
-                    getLgas(data.data.state_id)
-                    setLoading(false)
-                })
-        }
+        getProperties()
     }, [])
 
-    const getPropertyTypeList = async () => {
-        await axiosInstance.get(`property-type`)
+    const getProperties = async () => {
+        setLoading(true)
+        await axiosInstance.get(`property`)
             .then(({ data }) => {
-                console.log("res", data.data)
-                setPropertyTypes(data.data)
-            }).catch((err) => {
-                console.log(err)
-            })
-    }
-
-    const getStates = async () => {
-        await axiosInstance.get(`states`)
-            .then(({ data }) => {
-                console.log('state data', data.data)
-                setStates(data.data)
-            }).catch((err) => {
-                console.log(err)
-            })
-    }
-
-    const getLgas = async (id) => {
-        await axiosInstance.get(`/lga/${id}`)
-            .then(({ data }) => {
-                console.log('lga data', data.data)
-                setLgas(data.data)
-            }).catch((err) => {
-                console.log(err)
-            })
-    }
-
-    const onImageChange = (e) => {
-        const file = e.target.files[0]
-        //convert image to base64 string and send to back end
-        const reader = new FileReader(); //read the file
-        //  console.log(reader)
-        reader.onload = () => {
-            setPropertyData({
-                ...propertyData, p_image: file, image_url: reader.result
-            })
-            e.target.value = ""
-        }
-        reader.readAsDataURL(file) //enable image display
-    }
-
-    const handleSave = (e) => {
-        e.preventDefault()
-        const payload = { ...propertyData };
-        if (payload.p_image) {
-            payload.p_image = payload.image_url
-        }
-        delete payload.image_url
-        let res = null;
-        console.log("property data", payload)
-
-        if (id) {
-            console.log("update payload", payload)
-            res = axiosInstance.put(`property/${id}`, payload)
-        } else {
-            res = axiosInstance.post(`property`, payload)
-        }
-        res
-            .then((res) => {
                 setLoading(false)
-                toast.success(res.data.message);
-                navigate('/properties')
-                console.log("res", res)
+                setPropertyList(data.data)
             }).catch((err) => {
                 console.log(err)
                 setLoading(false)
-            });
+            })
+    }
+
+    const handleSave = async () => {
+
     }
 
     return (
         <>
-            {id &&
-                <Breadcrumb pageName="Edit Property" />
-            }
-
-            {!id &&
-                <Breadcrumb pageName="New Property" />
-            }
+            <Breadcrumb pageName="Create Property Space" />
 
             <div className="flex">
                 <div className="w-full m-4">
@@ -130,17 +41,9 @@ const CreateProperty = () => {
                     <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
                         <div className="flex flex-col md:flex-row md:justify-between border-b border-stroke py-4 px-6.5 dark:border-strokedark">
                             <div>
-                                {id &&
-                                    <h3 className="flex font-medium text-black dark:text-white">
-                                        <PencilSquareIcon className='h-6 w-6' /> Edit Property
-                                    </h3>
-                                }
-                                {!id &&
-                                    <h3 className="flex font-medium text-black dark:text-white">
-                                        <PencilSquareIcon className='h-6 w-6' /> Create New Property
-                                    </h3>
-                                }
-
+                                <h3 className="flex font-medium text-black dark:text-white">
+                                    <PencilSquareIcon className='h-6 w-6' /> Create Space
+                                </h3>
                             </div>
 
                             <div className='my-2 md:my-0'>
@@ -157,7 +60,7 @@ const CreateProperty = () => {
                                         <label className="block text-sm font-medium text-gray-700">
                                             Property Image
                                         </label>
-                                        <div className="mt-1 flex items-center">
+                                        {/* <div className="mt-1 flex items-center">
                                             {propertyData.image_url && (
                                                 <img
                                                     src={propertyData.image_url}
@@ -183,24 +86,24 @@ const CreateProperty = () => {
                                                 />
                                                 Select
                                             </button>
-                                        </div>
+                                        </div> */}
                                     </div>
 
                                     <div className="mb-4.5 flex flex-col gap-6 xl:flex-row">
 
-                                        <div className="w-full xl:w-1/2">
+                                        <div className="w-full">
                                             <label className="mb-3 block text-black dark:text-white">
-                                                Select Property Type
+                                                Select Property
                                             </label>
                                             <div className="relative z-20 bg-white dark:bg-form-input">
 
                                                 <select className="relative z-20 w-full appearance-none rounded border border-stroke bg-transparent py-3 px-3 outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input"
-                                                    value={propertyData.property_type_id}
-                                                    onChange={(e) => setPropertyData({ ...propertyData, property_type_id: e.target.value })}
+                                                // value={propertyData.property_type_id}
+                                                // onChange={(e) => setPropertyData({ ...propertyData, property_type_id: e.target.value })}
                                                 >
                                                     <option value="">Select...</option>
-                                                    {propertyTypes.map((list) => (
-                                                        <option key={list.id} value={list.id} selected={list.id === propertyData.property_type_id}>{list.name} ({list.description})</option>
+                                                    {propertyList.map((list) => (
+                                                        <option key={list.id} value={list.id}>{list.p_name} ({list.p_desc})</option>
                                                     ))}
                                                 </select>
                                                 <span className="absolute top-1/2 right-4 z-10 -translate-y-1/2">
@@ -224,7 +127,7 @@ const CreateProperty = () => {
                                             </div>
                                         </div>
 
-                                        <div className="w-full xl:w-1/2">
+                                        {/* <div className="w-full xl:w-1/2">
                                             <label className="mb-2.5 block text-black dark:text-white">
                                                 Property Name
                                             </label>
@@ -235,7 +138,7 @@ const CreateProperty = () => {
                                                 value={propertyData.p_name}
                                                 onChange={(e) => setPropertyData({ ...propertyData, p_name: e.target.value })}
                                             />
-                                        </div>
+                                        </div> */}
 
                                     </div>
 
@@ -243,14 +146,14 @@ const CreateProperty = () => {
 
                                         <div className="w-full xl:w-1/2">
                                             <label className="mb-2.5 block text-black dark:text-white">
-                                                No. of Space
+                                                Space name
                                             </label>
                                             <input
-                                                type="number"
-                                                placeholder="Enter No. of space"
+                                                type="text"
+                                                placeholder="Enter space name"
                                                 className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
-                                                value={propertyData.num_of_space}
-                                                onChange={(e) => setPropertyData({ ...propertyData, num_of_space: e.target.value })}
+                                            // value={propertyData.num_of_space}
+                                            // onChange={(e) => setPropertyData({ ...propertyData, num_of_space: e.target.value })}
                                             />
                                         </div>
 
@@ -260,10 +163,10 @@ const CreateProperty = () => {
                                             </label>
                                             <textarea
                                                 rows={1}
-                                                placeholder="Property description"
+                                                placeholder="Space description"
                                                 className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
-                                                value={propertyData.p_desc}
-                                                onChange={(e) => setPropertyData({ ...propertyData, p_desc: e.target.value })}
+                                            // value={propertyData.p_desc}
+                                            // onChange={(e) => setPropertyData({ ...propertyData, p_desc: e.target.value })}
                                             ></textarea>
                                         </div>
 
@@ -271,58 +174,34 @@ const CreateProperty = () => {
 
                                     <div className="mb-4.5 flex flex-col gap-6 xl:flex-row">
                                         <div className="w-full xl:w-1/2">
-                                            <label className="mb-3 block text-black dark:text-white">
-                                                Select State
+                                            <label className="mb-2.5 block text-black dark:text-white">
+                                                Amount
                                             </label>
-                                            <div className="relative z-20 bg-white dark:bg-form-input">
-
-                                                <select className="relative z-20 w-full appearance-none rounded border border-stroke bg-transparent py-3 px-3 outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input"
-                                                    value={propertyData.state_id}
-                                                    onChange={(e) => {
-                                                        setPropertyData({ ...propertyData, state_id: e.target.value })
-                                                        getLgas(e.target.value)
-                                                    }}
-                                                >
-                                                    <option value="">Select...</option>
-                                                    {states.map((state) => (
-                                                        <option key={state.state_id} value={state.state_id} selected={state.state_id === propertyData.state_id}>{state.state}</option>
-                                                    ))}
-                                                </select>
-                                                <span className="absolute top-1/2 right-4 z-10 -translate-y-1/2">
-                                                    <svg
-                                                        width="24"
-                                                        height="24"
-                                                        viewBox="0 0 24 24"
-                                                        fill="none"
-                                                        xmlns="http://www.w3.org/2000/svg"
-                                                    >
-                                                        <g opacity="0.8">
-                                                            <path
-                                                                fillRule="evenodd"
-                                                                clipRule="evenodd"
-                                                                d="M5.29289 8.29289C5.68342 7.90237 6.31658 7.90237 6.70711 8.29289L12 13.5858L17.2929 8.29289C17.6834 7.90237 18.3166 7.90237 18.7071 8.29289C19.0976 8.68342 19.0976 9.31658 18.7071 9.70711L12.7071 15.7071C12.3166 16.0976 11.6834 16.0976 11.2929 15.7071L5.29289 9.70711C4.90237 9.31658 4.90237 8.68342 5.29289 8.29289Z"
-                                                                fill="#637381"
-                                                            ></path>
-                                                        </g>
-                                                    </svg>
-                                                </span>
-                                            </div>
+                                            <input
+                                                type="text"
+                                                placeholder="Enter Amount for space"
+                                                className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
+                                            // value={propertyData.num_of_space}
+                                            // onChange={(e) => setPropertyData({ ...propertyData, num_of_space: e.target.value })}
+                                            />
                                         </div>
 
                                         <div className="w-full xl:w-1/2">
                                             <label className="mb-3 block text-black dark:text-white">
-                                                Select LGA
+                                                Space Status
                                             </label>
                                             <div className="relative z-20 bg-white dark:bg-form-input">
 
                                                 <select className="relative z-20 w-full appearance-none rounded border border-stroke bg-transparent py-3 px-3 outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input"
-                                                    value={propertyData.lga_id}
-                                                    onChange={(e) => setPropertyData({ ...propertyData, lga_id: e.target.value })}
+                                                // value={propertyData.lga_id}
+                                                // onChange={(e) => setPropertyData({ ...propertyData, lga_id: e.target.value })}
                                                 >
                                                     <option value="">Select...</option>
-                                                    {lgas.map((lga) => (
+                                                    <option value="">Occupied</option>
+                                                    <option value="">Empty</option>
+                                                    {/* {lgas.map((lga) => (
                                                         <option key={lga.lga_id} value={lga.lga_id} selected={lga.lga_id === propertyData.lga_id}>{lga.lga}</option>
-                                                    ))}
+                                                    ))} */}
                                                 </select>
                                                 <span className="absolute top-1/2 right-4 z-10 -translate-y-1/2">
                                                     <svg
@@ -347,7 +226,7 @@ const CreateProperty = () => {
 
                                     </div>
 
-                                    <div className="mb-4.5 flex flex-col gap-6 xl:flex-row">
+                                    {/* <div className="mb-4.5 flex flex-col gap-6 xl:flex-row">
 
                                         <div className="w-full xl:w-1/2">
                                             <label className="mb-2.5 block text-black dark:text-white">
@@ -374,7 +253,7 @@ const CreateProperty = () => {
                                                 onChange={(e) => setPropertyData({ ...propertyData, p_address: e.target.value })}
                                             />
                                         </div>
-                                    </div>
+                                    </div> */}
 
                                     <button type='submit' className="flex justify-center rounded bg-primary px-4 py-2 font-medium text-gray">
                                         Save
@@ -389,4 +268,4 @@ const CreateProperty = () => {
     )
 }
 
-export default CreateProperty
+export default CreateSpace

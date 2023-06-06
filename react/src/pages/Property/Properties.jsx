@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import Breadcrumb from '../../components/Breadcrumb'
-import { PencilSquareIcon, TrashIcon, ListBulletIcon} from '@heroicons/react/24/outline';
+import { PencilSquareIcon, TrashIcon, ListBulletIcon, EyeIcon} from '@heroicons/react/24/outline';
 import axiosInstance from '../../axios.js';
 import { toast } from 'react-toastify'
 import Loader from '../../components/Loader/Loader';
@@ -16,12 +16,15 @@ const Properties = () => {
     }, [])
 
     const getProperties = async() => {
+        setLoading(true)
         await axiosInstance.get(`property`)
         .then(({data}) => {
+            setLoading(false)
             console.log("prop data", data.data)
             setPropertyList(data.data)
         }).catch((err) => {
             console.log(err)
+            setLoading(false)
         })
     }
 
@@ -105,9 +108,16 @@ const Properties = () => {
                                         </td> */}
                                         <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                                             <div className="flex items-center space-x-3.5">
-                                                <Link to="#" className="hover:text-primary">
-                                                    <PencilSquareIcon
+                                                <Link to="" className="hover:text-primary">
+                                                    <EyeIcon
                                                         // onClick={() => handleUpdate(occupant)}
+                                                        className='w-6 h-6 text-primary'
+                                                    />
+
+                                                </Link>
+
+                                                <Link to={`/property-edit/${property.id}`} className="hover:text-primary">
+                                                    <PencilSquareIcon
                                                         className='w-6 h-6 text-success'
                                                     />
 

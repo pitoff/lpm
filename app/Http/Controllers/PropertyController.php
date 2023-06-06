@@ -46,9 +46,20 @@ class PropertyController extends Controller
         }
     }
 
-    public function update(Request $request, string $id)
+    public function update(CreatePropertyRequest $request, Property $property)
     {
-        //
+        $data = $request->validated();
+        if(isset($data['p_image'])){
+            $relativePath = $this->saveImage($data['p_image']);
+            $data['p_image'] = $relativePath;
+
+            if($property->p_image){
+                $absolutePath = public_path($property->p_image);
+                File::delete($absolutePath);
+            }
+        }
+        $property->update($data);
+        return $this->success(new CreatePropertyResource($property), "property updated", 200);
     }
 
     public function destroy(string $id)
