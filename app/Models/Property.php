@@ -39,4 +39,9 @@ class Property extends Model
         return $this->belongsTo(LGA::class);
     }
 
+    public function space()
+    {
+        return $this->hasMany(Space::class);
+    }
+
 }
