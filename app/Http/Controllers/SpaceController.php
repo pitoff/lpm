@@ -21,7 +21,7 @@ class SpaceController extends Controller
         return $this->success(CreatePropertyResource::collection($properties), "List of properties", 200);
     }
 
-    public function propertySpaces($property, Request $request)
+    public function propertySpaces($property)
     {
         $spaces = Space::where('property_id', $property)->get();
         return $this->success(SpaceResource::collection($spaces), "List of spaces", 200);
