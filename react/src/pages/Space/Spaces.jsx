@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import Breadcrumb from '../../components/Breadcrumb'
-import { PencilSquareIcon, TrashIcon, ListBulletIcon, EyeIcon} from '@heroicons/react/24/outline';
+import { PencilSquareIcon, TrashIcon, ListBulletIcon, EyeIcon } from '@heroicons/react/24/outline';
 import axiosInstance from '../../axios.js';
 import { toast } from 'react-toastify'
 import Loader from '../../components/Loader/Loader';
@@ -14,14 +14,14 @@ const Spaces = () => {
         getSpaces()
     }, [])
 
-    const getSpaces = async() => {
+    const getSpaces = async () => {
         await axiosInstance.get(`space`)
-        .then((res) => {
-            console.log("res", res.data.data)
-            setSpaceList(res.data.data)
-        }).catch((err) => {
-            console.log(err)
-        })
+            .then((res) => {
+                console.log("res", res.data.data)
+                setSpaceList(res.data.data)
+            }).catch((err) => {
+                console.log(err)
+            })
     }
 
     return (
@@ -45,7 +45,7 @@ const Spaces = () => {
                 <div className="max-w-full overflow-x-auto">
                     <table className="w-full table-auto">
                         <thead>
-                            
+
                             <tr className="bg-gray-2 text-left dark:bg-meta-4">
                                 <th className=" py-4 px-4 font-medium text-black dark:text-white xl:pl-11">
                                     SN
@@ -78,15 +78,23 @@ const Spaces = () => {
                             <tbody>
                                 {spaceList && spaceList.map((property, index) => (
                                     <>
+                                     {/* <div className='flex flex-row justify-center max-w-full' style={{backgroundColor:`red`, width:`900px`}}>
                                         <thead>
-                                            <tr className='w-full text-center bg-black'>
-                                            <th>
-                                            {property.p_name}
-                                            </th>
-                                            
-                                            </tr>
+                                           
+                                                <tr className='w-full text-center bg-black'>
+                                                    <th>
+                                                        {property.p_name}
+                                                    </th>
+
+                                                </tr>
                                             
                                         </thead>
+                                        </div> */}
+                                        <tr>
+                                            <div className='flex flex-row justify-center max-w-full' style={{backgroundColor:`red`, width:`900px`}}>
+                                                Ga
+                                            </div> 
+                                        </tr>
                                     </>
                                     // <tr key={property.id}>
                                     //     <td className="border-b border-[#eee] py-5 px-4 pl-9 dark:border-strokedark xl:pl-11">
@@ -110,7 +118,7 @@ const Spaces = () => {
                                     //         <div className="flex items-center space-x-3.5">
                                     //             <Link to="" className="hover:text-primary">
                                     //                 <EyeIcon
-                                                        
+
                                     //                     className='w-6 h-6 text-primary'
                                     //                 />
 
@@ -124,7 +132,7 @@ const Spaces = () => {
                                     //             </Link>
                                     //             <button className="hover:text-primary">
                                     //                 <TrashIcon
-                    
+
                                     //                     className='w-6 h-6 text-danger'
                                     //                 />
                                     //             </button>

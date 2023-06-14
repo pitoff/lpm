@@ -22,11 +22,12 @@ class SpaceRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'property_id' => 'required',
-            'space_name' => 'required',
-            'space_description' => 'required',
-            'space_price' => 'required',
-            'space_status' => 'required'
+            'spaces' => "present|array",
+            'spaces.*.property_id' => 'required|integer',
+            'spaces.*.space_name' => 'required|string',
+            'spaces.*.space_description' => 'required|string',
+            'spaces.*.space_price' => 'required',
+            'spaces.*.space_status' => 'required',
         ];
     }
 }
