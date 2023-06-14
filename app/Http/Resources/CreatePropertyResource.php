@@ -27,7 +27,7 @@ class CreatePropertyResource extends JsonResource
             'p_city' => $this->p_city,
             'p_address' => $this->p_address,
             'image_url' => $this->p_image ? URL::to($this->p_image) : null,
-            'space' => $this->space,
+            // 'space' => $this->space,
         ];
     }
 }

@@ -17,8 +17,14 @@ class SpaceController extends Controller
 
     public function index()
     {
-        $spaces = Property::with('space')->get();
-        return $this->success(CreatePropertyResource::collection($spaces), "List of spaces", 200);
+        $properties = Property::all();
+        return $this->success(CreatePropertyResource::collection($properties), "List of properties", 200);
+    }
+
+    public function propertySpaces($property, Request $request)
+    {
+        $spaces = Space::where('property_id', $property)->get();
+        return $this->success(SpaceResource::collection($spaces), "List of spaces", 200);
     }
 
     public function spaceStatus()
@@ -78,7 +84,4 @@ class SpaceController extends Controller
     {
     }
 
-    public function propertySpaces()
-    {
-    }
 }

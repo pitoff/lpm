@@ -36,7 +36,7 @@ Route::middleware('auth:sanctum')->group(function() {
     //spaces
     Route::apiResource('/space', SpaceController::class);
     Route::get('/space-status', [SpaceController::class, 'spaceStatus']);
-    Route::get('/property-spaces/{id}', [SpaceController::class, 'propertySpaces']);
+    Route::get('/property-spaces/{property}', [SpaceController::class, 'propertySpaces']);
 
     //state and lga
     Route::get('/states', [StateLgaController::class, 'states']);

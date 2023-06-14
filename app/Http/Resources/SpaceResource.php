@@ -15,11 +15,12 @@ class SpaceResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'property_id' => $this->property->id,
+            'id' => $this->id,
             'space_name' => $this->space_name,
             'space_description' => $this->space_description,
             'space_price' => $this->space_price,
             'space_status' => $this->space_status,
+            'property' => $this->property->p_name,
         ];
     }
 }
