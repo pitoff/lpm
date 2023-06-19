@@ -17,8 +17,18 @@ class Space extends Model
         'space_status'
     ];
 
+    public function spaceStatus()
+    {
+        return $this->space_status === 1 ? 'Occupied' : 'Empty';
+    }
+
     public function property()
     {
         return $this->belongsTo(Property::class);
+    }
+
+    public function occupant()
+    {
+        return $this->belongsTo(Occupant::class);
     }
 }

@@ -19,7 +19,9 @@ class SpaceResource extends JsonResource
             'space_name' => $this->space_name,
             'space_description' => $this->space_description,
             'space_price' => $this->space_price,
+            'space_status_name' => $this->spaceStatus(),
             'space_status' => $this->space_status,
+            'property_id' => $this->property_id,
             'property' => $this->property->p_name,
         ];
     }

@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\SpaceRequest;
+use App\Http\Requests\UpdateSpaceRequest;
 use App\Http\Resources\CreatePropertyResource;
 use App\Http\Resources\SpaceResource;
+use App\Models\Occupant;
 use App\Models\Property;
 use App\Models\Space;
 use Illuminate\Http\Request;
@@ -25,6 +27,12 @@ class SpaceController extends Controller
     {
         $spaces = Space::where('property_id', $property)->get();
         return $this->success(SpaceResource::collection($spaces), "List of spaces", 200);
+    }
+
+    public function emptySpaces($property)
+    {
+        $spaces = Space::where('property_id', $property)->where('space_status', 0)->get();
+        return $this->success(SpaceResource::collection($spaces), "List of empty spaces", 200);
     }
 
     public function spaceStatus()
@@ -72,12 +80,42 @@ class SpaceController extends Controller
         }
     }
 
-    public function show()
+    public function show(Space $space)
     {
+        return $this->success(new SpaceResource($space), 'Property space retrieved', 200);
     }
 
-    public function update()
+    public function update(Space $space, UpdateSpaceRequest $request)
     {
+        try {
+            $space->update($request->validated());
+            return $this->success(new SpaceResource($space), "space updated", 200);
+        } catch (\Throwable $th) {
+            //throw $th;
+            return $this->error($th, 400);
+        }
+    }
+
+    public function assignSpace($occupant, Request $request)
+    {
+        $request->validate([
+            'space_id' => 'required|integer',
+        ]);
+
+        //check if user and space exists
+        $user = Occupant::where('id', $occupant)->exists();
+        $space = Space::where('id', $request->space_id)->exists();
+        if($user && $space){
+            try {
+                Occupant::where('id', $occupant)->update([
+                    'space_id' => $request->space_id
+                ]);
+                return $this->success("space assigned", "space successfully assigned to occupant", 200);
+            } catch (\Throwable $th) {
+                //throw $th;
+                return $this->error($th, 400);
+            }
+        }
     }
 
     public function destroy()

@@ -1,0 +1,8 @@
+.suggestion{
+    cursor: "pointer";
+    border: "1px solid black";
+}
+.suggestion:hover{
+    border: 2px solid aquamarine;
+    border-radius: 5px;
+}

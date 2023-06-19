@@ -24,4 +24,14 @@ class Occupant extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function space()
+    {
+        return $this->hasMany(Space::class);
+    }
+
+    public function getFullNameAttribute()
+    {
+        return ucfirst($this->user->lastname).' '.ucfirst($this->user->firstname);
+    }
 }

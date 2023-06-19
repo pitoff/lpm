@@ -28,6 +28,8 @@ import CreateProperty from './pages/Property/CreateProperty';
 import CreateSpace from './pages/Space/CreateSpace';
 import Spaces from './pages/Space/Spaces';
 import PropertySpaceList from './pages/Space/PropertySpaceList';
+import EditSpace from './pages/Space/EditSpace';
+import AssignSpace from './pages/Space/AssignSpace';
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -67,8 +69,9 @@ function App() {
             <Route path='/property-edit/:id' element={<CreateProperty />} />
             <Route path="/spaces" element={<Spaces />} />
             <Route path="/create-space" element={<CreateSpace />} />
+            <Route path="/edit-space/:id" element={<EditSpace />} />
             <Route path="/property-spaces/:id/:p_name" element={<PropertySpaceList />} />
-            <Route path="/assign-space" element={<Profile />} />
+            <Route path="/assign-space" element={<AssignSpace />} />
           </Route>
 
           {/* occupants */}

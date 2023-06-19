@@ -19,6 +19,7 @@ class OccupantResource extends JsonResource
             'id' => $this->id,
             'firstname' => $this->user->firstname,
             'lastname' => $this->user->lastname,
+            'fullname' => $this->getFullNameAttribute(),
             'email' => $this->user->email,
             'phone_no' => $this->phone_no,
             'gender' => $this->gender,
