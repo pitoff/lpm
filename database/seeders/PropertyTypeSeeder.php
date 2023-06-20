@@ -19,12 +19,12 @@ class PropertyTypeSeeder extends Seeder
                 'description' => 'bungalow house'
             ],
             [
-                'name' => 'Duplex',
-                'description' => 'One storey'
+                'name' => 'Storey Building',
+                'description' => 'series of flats'
             ],
             [
-                'name' => 'plaza',
-                'description' => 'consisting of different spaces for business'
+                'name' => 'Plaza',
+                'description' => 'consist of different spaces for business'
             ]
         ];
 

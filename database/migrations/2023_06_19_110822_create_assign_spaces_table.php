@@ -18,6 +18,7 @@ return new class extends Migration
             $table->foreign('property_id')->references('id')->on('properties');
             $table->unsignedBigInteger('space_id')->nullable();
             $table->foreign('space_id')->references('id')->on('spaces');
+            $table->integer('assign_status');
             $table->timestamps();
         });
     }

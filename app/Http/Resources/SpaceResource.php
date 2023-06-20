@@ -23,6 +23,7 @@ class SpaceResource extends JsonResource
             'space_status' => $this->space_status,
             'property_id' => $this->property_id,
             'property' => $this->property->p_name,
+            'occupant' => $this->lastname.' '.$this->firstname,
         ];
     }
 }

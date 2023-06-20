@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import Breadcrumb from '../../components/Breadcrumb'
-import { PencilSquareIcon, TrashIcon, ListBulletIcon} from '@heroicons/react/24/outline';
+import { PencilSquareIcon, TrashIcon, ListBulletIcon } from '@heroicons/react/24/outline';
 import axiosInstance from '../../axios.js';
 import { toast } from 'react-toastify'
 import Loader from '../../components/Loader/Loader';
@@ -95,7 +95,7 @@ const Occupants = () => {
             {loading && <Loader />}
             {!loading &&
               <tbody>
-                {occupantList && occupantList.map((occupant, index) => (
+                {occupantList.length > 0 ? occupantList.map((occupant, index) => (
                   <tr>
                     <td className="border-b border-[#eee] py-5 px-4 pl-9 dark:border-strokedark xl:pl-11">
                       {index + 1}
@@ -138,7 +138,19 @@ const Occupants = () => {
                       </div>
                     </td>
                   </tr>
-                ))}
+                )) : <tr>
+                  <td colSpan={7} className='text-center'>
+                    <div className="flex w-full border-l-6 border-warning bg-warning bg-opacity-[15%] shadow-md dark:bg-[#1B1B24] dark:bg-opacity-30 md:p-2">
+
+                      <div className="w-full">
+                        <h5 className="mb-3 font-semibold text-[#9D5425]">
+                          No Occupant found!
+                        </h5>
+
+                      </div>
+                    </div>
+                  </td>
+                </tr>}
               </tbody>
             }
           </table>

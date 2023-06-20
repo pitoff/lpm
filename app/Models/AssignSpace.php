@@ -9,9 +9,15 @@ class AssignSpace extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
+    public $fillable = [
         'occupant_id',
         'property_id',
         'space_id',
+        'assign_status'
     ];
+
+    public function space()
+    {
+        return $this->belongsTo(Space::class);
+    }
 }

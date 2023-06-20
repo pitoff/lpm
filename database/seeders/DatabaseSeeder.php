@@ -24,6 +24,8 @@ class DatabaseSeeder extends Seeder
             PropertyTypeSeeder::class,
             StateSeeder::class,
             LGASeeder::class,
+            PropertySeeder::class,
+            SpaceSeeder::class,
         ]);
     }
 }

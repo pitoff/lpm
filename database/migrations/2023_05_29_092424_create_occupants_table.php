@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('occupants', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained();
-            $table->unsignedBigInteger('space_id')->nullable();
-            $table->foreign('space_id')->references('id')->on('spaces');
+            // $table->unsignedBigInteger('space_id')->nullable();
+            // $table->foreign('space_id')->references('id')->on('spaces');
             $table->string('phone_no');
             $table->string('gender');
             $table->string('marital_status');

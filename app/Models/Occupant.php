@@ -11,7 +11,6 @@ class Occupant extends Model
 
     public $fillable = [
         'user_id',
-        'space_id',
         'phone_no',
         'gender',
         'marital_status',
@@ -25,10 +24,10 @@ class Occupant extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function space()
-    {
-        return $this->hasMany(Space::class);
-    }
+    // public function space()
+    // {
+    //     return $this->hasMany(Space::class);
+    // }
 
     public function getFullNameAttribute()
     {

@@ -16,6 +16,7 @@ const AssignSpace = () => {
     const [spaceList, setSpaceList] = useState([]);
     const [assignData, setAssignData] = useState({
         user_id: '',
+        property_id: '',
         space_id: ''
     });
 
@@ -83,7 +84,7 @@ const AssignSpace = () => {
     const handleSave = async (e) => {
         e.preventDefault()
         console.log("assign data", assignData)
-        await axiosInstance.post(`assign-space`)
+        // await axiosInstance.post(`assign-space`)
     }
 
     return (
@@ -197,14 +198,16 @@ const AssignSpace = () => {
                                             <div className="relative z-20 bg-white dark:bg-form-input">
 
                                                 <select className="relative z-20 w-full appearance-none rounded border border-stroke bg-transparent py-3 px-3 outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input"
+                                                    value={assignData.property_id}
                                                     onChange={(e) => {
                                                         getPropertyImage(e.target.value)
                                                         getPropertySpaces(e.target.value)
+                                                        setAssignData({...assignData, property_id: e.target.value})
                                                     }}
                                                 >
                                                     <option value="">Select...</option>
                                                     {propertyList.map((list) => (
-                                                        <option key={list.id} value={list.id}>{list.p_name} ({list.p_desc})</option>
+                                                        <option key={list.id} value={list.id}>{list.p_name}</option>
                                                     ))}
                                                 </select>
                                                 <span className="absolute top-1/2 right-4 z-10 -translate-y-1/2">

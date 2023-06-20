@@ -13,6 +13,15 @@ return new class extends Migration
     {
         Schema::create('rents', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('occupant_id')->constrained();
+            $table->unsignedBigInteger('space_id')->nullable();
+            $table->foreign('space_id')->references('id')->on('spaces');
+            $table->integer('amount_paid');
+            $table->integer('year');
+            $table->date('from');
+            $table->date('to');
+            $table->date('paid_at');
+            $table->integer('payment_status');
             $table->timestamps();
         });
     }

@@ -22,14 +22,6 @@ class UserSeeder extends Seeder
                 'password' => "12345",
                 'status' => 1
             ],
-            [
-                'firstname' => "obiora",
-                'lastname' => "nwafor",
-                'role' => 2,
-                'email' => "nwafor@gmail.com",
-                'password' => "12345",
-                'status' => 1
-            ]
         ];
 
         foreach($users as $user){

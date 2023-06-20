@@ -25,7 +25,12 @@ class SpaceController extends Controller
 
     public function propertySpaces($property)
     {
-        $spaces = Space::where('property_id', $property)->get();
+        $spaces = Space::where('spaces.property_id', $property)
+            ->leftJoin('assign_spaces', 'assign_spaces.space_id', 'spaces.id')
+            ->join('occupants', 'occupants.id', 'assign_spaces.occupant_id')
+            ->join('users', 'users.id', 'occupants.user_id')
+            ->where('assign_spaces.assign_status', 1)
+            ->get();
         return $this->success(SpaceResource::collection($spaces), "List of spaces", 200);
     }
 
@@ -57,8 +62,8 @@ class SpaceController extends Controller
             $createdSpaces = Space::where('property_id', $propertySpaces[0])->count();
             //get about to create space count
             $newSpaceCount = count($validatedData['spaces']);
-            
-            if(($newSpaceCount + $createdSpaces) > $spaces){
+
+            if (($newSpaceCount + $createdSpaces) > $spaces) {
                 return $this->error("Sorry you can no longer create space for this property", 400);
             }
 
@@ -73,7 +78,6 @@ class SpaceController extends Controller
             }
             $space = Space::insert($spaceData);
             return $this->success($space, "Space created successfully", 201);
-
         } catch (\Throwable $th) {
             //throw $th;
             return $this->error($th->getMessage(), 400);
@@ -99,5 +103,4 @@ class SpaceController extends Controller
     public function destroy()
     {
     }
-
 }
