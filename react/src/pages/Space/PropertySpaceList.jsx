@@ -54,11 +54,8 @@ const PropertySpaceList = () => {
                                 <th className=" py-4 px-4 font-medium text-black dark:text-white xl:pl-11">
                                     SN
                                 </th>
-                                <th className="min-w-[150px] py-4 px-4 font-medium text-black dark:text-white">
-                                    Occupant
-                                </th>
                                 <th className="min-w-[220px] py-4 px-4 font-medium text-black dark:text-white xl:pl-11">
-                                    Space
+                                    Space Name
                                 </th>
                                 <th className="min-w-[150px] py-4 px-4 font-medium text-black dark:text-white">
                                     Description
@@ -77,13 +74,10 @@ const PropertySpaceList = () => {
                         {loading && <Loader />}
                         {!loading &&
                             <tbody>
-                                {spaceList.length > 0 ? spaceList.map((space, index) => (
+                                {spaceList && spaceList.length > 0 ? spaceList.map((space, index) => (
                                     <tr key={space.id}>
                                         <td className="border-b border-[#eee] py-5 px-4 pl-9 dark:border-strokedark xl:pl-11">
                                             {index + 1}
-                                        </td>
-                                        <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                                            <p className="text-black dark:text-white">{space.occupant}</p>
                                         </td>
                                         <td className="border-b border-[#eee] py-5 px-4 pl-9 dark:border-strokedark xl:pl-11">
                                             <h5 className="font-medium text-black dark:text-white">
@@ -114,12 +108,13 @@ const PropertySpaceList = () => {
                                                     />
 
                                                 </Link>
-                                                {/* <button className="hover:text-primary">
+                                                {/* can only delete when space has not been assigned */}
+                                                <button className="hover:text-primary">
                                                     <TrashIcon
 
                                                         className='w-6 h-6 text-danger'
                                                     />
-                                                </button> */}
+                                                </button>
 
                                             </div>
                                         </td>

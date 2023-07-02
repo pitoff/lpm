@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Requests\OccupantRequest;
 use App\Http\Requests\UpdateOccupantRequest;
 use App\Http\Resources\OccupantResource;
+use App\Models\AssignSpace;
 use App\Models\Occupant;
+use App\Models\Property;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -19,7 +21,20 @@ class OccupantController extends Controller
 
     public function index()
     {
-        return $this->success(OccupantResource::collection(Occupant::all()), "list of occupants", 200);
+        $occupants = Occupant::with('user')->get();
+        return $this->success(OccupantResource::collection($occupants), "list of occupants", 200);
+    }
+
+    public function propertiesAndOccupants()
+    {
+        $occupants = Occupant::leftJoin('assign_spaces', 'assign_spaces.occupant_id', 'occupants.id')
+        ->leftJoin('properties', 'properties.id', 'assign_spaces.property_id')
+        ->leftJoin('users', 'users.id', 'occupants.user_id')
+        ->leftJoin('spaces', 'spaces.property_id', 'assign_spaces.property_id')
+        ->where('assign_spaces.assign_status', 1)
+        ->select('occupants.*', 'p_name', 'firstname', 'lastname', 'space_name', 'space_price')->get();
+
+        return response()->json(["data" => $occupants] ,200);
     }
 
     public function store(OccupantRequest $request)

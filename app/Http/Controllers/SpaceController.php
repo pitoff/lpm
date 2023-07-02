@@ -25,12 +25,7 @@ class SpaceController extends Controller
 
     public function propertySpaces($property)
     {
-        $spaces = Space::where('spaces.property_id', $property)
-            ->leftJoin('assign_spaces', 'assign_spaces.space_id', 'spaces.id')
-            ->join('occupants', 'occupants.id', 'assign_spaces.occupant_id')
-            ->join('users', 'users.id', 'occupants.user_id')
-            ->where('assign_spaces.assign_status', 1)
-            ->get();
+        $spaces = Space::where('property_id', $property)->get();
         return $this->success(SpaceResource::collection($spaces), "List of spaces", 200);
     }
 

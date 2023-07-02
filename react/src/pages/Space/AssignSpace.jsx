@@ -84,7 +84,19 @@ const AssignSpace = () => {
     const handleSave = async (e) => {
         e.preventDefault()
         console.log("assign data", assignData)
-        // await axiosInstance.post(`assign-space`)
+        await axiosInstance.post(`assign-space`, assignData)
+        .then((res) => {
+            console.log(res)
+            toast.success(res.data.message)
+            setValue('')
+            setAssignData({
+                user_id: '',
+                property_id: '',
+                space_id: ''
+            })
+        }).catch((err) => {
+            console.log(err)
+        })
     }
 
     return (
