@@ -19,14 +19,14 @@ class SpaceSeeder extends Seeder
                 'space_name' => "flat 1 (ground floor)",
                 'space_description' => "3 bedroom flat with 1 kitchen 2 toilet's and bathroom",
                 'space_price' => 300000,
-                'space_status' => 1
+                'space_status' => 0
             ],
             [
                 'property_id' => 3,
                 'space_name' => "Shop",
                 'space_description' => "A room for business",
                 'space_price' => 48000,
-                'space_status' => 1
+                'space_status' => 0
             ]
         ];
 

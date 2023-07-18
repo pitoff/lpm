@@ -30,6 +30,11 @@ import Spaces from './pages/Space/Spaces';
 import PropertySpaceList from './pages/Space/PropertySpaceList';
 import EditSpace from './pages/Space/EditSpace';
 import AssignSpace from './pages/Space/AssignSpace';
+import CreateRent from './pages/Rent/CreateRent';
+import DueRent from './pages/Rent/DueRent';
+import RentSlip from './pages/Rent/RentSlip';
+import Rents from './pages/Rent/Rents';
+import RentReceipt from './pages/Rent/RentReceipt';
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -72,6 +77,11 @@ function App() {
             <Route path="/edit-space/:id" element={<EditSpace />} />
             <Route path="/property-spaces/:id/:p_name" element={<PropertySpaceList />} />
             <Route path="/assign-space" element={<AssignSpace />} />
+            <Route path="/create-paid-rent" element={<CreateRent />} />
+            <Route path="/view-paid-rent" element={<Rents />} />
+            <Route path="/rent-receipt/:id" element={<RentReceipt />} />
+            <Route path="/due-rent" element={<DueRent />} />
+            {/* <Route path="/rent-slip" element={<RentSlip />} /> */}
           </Route>
 
           {/* occupants */}
@@ -83,6 +93,7 @@ function App() {
           <Route element={<RequireAuth allowedRoles={[1,2]}/>}>
             <Route path="/" element={<Dashboard />} />
             <Route path="/profile" element={<Profile />} />
+            <Route path="/rent-slip" element={<RentSlip />} />
           </Route>
 
           <Route path='unauthorized' element={<Unauthorized />} />

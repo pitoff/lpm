@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Requests\OccupantRequest;
 use App\Http\Requests\UpdateOccupantRequest;
@@ -92,6 +92,17 @@ class OccupantController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    //accepts space id and return occupant 
+    public function OccupantSpace($id)
+    {
+        $assigned = AssignSpace::where('space_id', $id)->where('assign_status', 1)
+        ->leftJoin('occupants', 'occupants.id', 'assign_spaces.occupant_id')
+        ->leftJoin('users', 'users.id', 'occupants.user_id')
+        ->select('occupants.id', 'users.firstname', 'users.lastname')
+        ->first();
+        return $this->success($assigned, "The Occupant of a space was retrived successfully", 200);
     }
 
     private function saveImage($image)

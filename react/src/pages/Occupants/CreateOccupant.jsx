@@ -89,7 +89,7 @@ const CreateOccupant = () => {
       .then((res) => {
         setLoading(false)
         toast.success(res.data.message);
-        navigate('/occupants')
+        navigate('/assign-space')
         console.log("res", res)
       }).catch((err) => {
         console.log(err)
@@ -305,8 +305,14 @@ const CreateOccupant = () => {
                         Year In
                       </label>
                       <div className="relative z-20 bg-white dark:bg-form-input">
-
-                        <select
+                        <input
+                          type="date"
+                          placeholder="Enter PhoneNo."
+                          className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
+                          value={occupantData.year_in}
+                          onChange={(e) => setOccupantData({ ...occupantData, year_in: e.target.value })}
+                        />
+                        {/* <select
                           className="relative z-20 w-full appearance-none rounded border border-stroke bg-transparent py-3 px-3 outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input"
                           value={occupantData.year_in}
                           onChange={(e) => setOccupantData({ ...occupantData, year_in: e.target.value })}
@@ -334,7 +340,7 @@ const CreateOccupant = () => {
                               ></path>
                             </g>
                           </svg>
-                        </span>
+                        </span> */}
                       </div>
                     </div>
 
@@ -343,8 +349,14 @@ const CreateOccupant = () => {
                         Year Out
                       </label>
                       <div className="relative z-20 bg-white dark:bg-form-input">
-
-                        <select
+                        <input
+                          type="date"
+                          placeholder="Enter PhoneNo."
+                          className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
+                          value={occupantData.year_out}
+                          onChange={(e) => setOccupantData({ ...occupantData, year_out: e.target.value })}
+                        />
+                        {/* <select
                           className="relative z-20 w-full appearance-none rounded border border-stroke bg-transparent py-3 px-3 outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input"
                           value={occupantData.year_out}
                           onChange={(e) => setOccupantData({ ...occupantData, year_out: e.target.value })}
@@ -371,7 +383,7 @@ const CreateOccupant = () => {
                               ></path>
                             </g>
                           </svg>
-                        </span>
+                        </span> */}
                       </div>
                     </div>
                   </div>

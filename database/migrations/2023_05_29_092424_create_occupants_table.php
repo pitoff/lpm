@@ -19,8 +19,8 @@ return new class extends Migration
             $table->string('phone_no');
             $table->string('gender');
             $table->string('marital_status');
-            $table->string("year_in")->nullable();
-            $table->string("year_out")->nullable();
+            $table->date("year_in")->nullable();
+            $table->date("year_out")->nullable();
             $table->string('image')->nullable();
             $table->timestamps();
         });

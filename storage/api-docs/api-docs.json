@@ -7,7 +7,7 @@
     },
     "servers": [
         {
-            "url": "http://127.0.0.1:8000/api",
+            "url": "http://127.0.0.1:8000/api/v1",
             "description": "Demo LPM API Server"
         }
     ],
@@ -19,7 +19,7 @@
                 ],
                 "summary": "User login",
                 "description": "User provides credentials to log in to the system",
-                "operationId": "2dd578ff7aba2721293dac66833b27d1",
+                "operationId": "72bf786ad8ff53c7391309c836350a8d",
                 "requestBody": {
                     "required": true,
                     "content": {

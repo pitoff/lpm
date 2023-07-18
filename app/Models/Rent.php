@@ -19,4 +19,29 @@ class Rent extends Model
         'paid_at',
         'payment_status'
     ];
+
+    public function occupant()
+    {
+        return $this->belongsTo(Occupant::class);
+    }
+
+    public function space()
+    {
+        return $this->belongsTo(Space::class);
+    }
+
+    public function getAmountPaidAttribute($value)
+    {
+        return number_format($value, 2);
+    }
+
+    public function getFromAttribute($value)
+    {
+        return date('F-Y', strtotime($value));
+    }
+
+    public function getToAttribute($value)
+    {
+        return date('F-Y', strtotime($value));
+    }
 }

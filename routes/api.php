@@ -1,12 +1,13 @@
 <?php
 
-use App\Http\Controllers\AssignSpaceController;
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\OccupantController;
-use App\Http\Controllers\PropertyController;
-use App\Http\Controllers\PropertyTypeController;
-use App\Http\Controllers\SpaceController;
-use App\Http\Controllers\StateLgaController;
+use App\Http\Controllers\Api\V1\AssignSpaceController;
+use App\Http\Controllers\Api\V1\AuthController;
+use App\Http\Controllers\Api\V1\OccupantController;
+use App\Http\Controllers\Api\V1\PropertyController;
+use App\Http\Controllers\Api\V1\PropertyTypeController;
+use App\Http\Controllers\Api\V1\RentController;
+use App\Http\Controllers\Api\V1\SpaceController;
+use App\Http\Controllers\Api\V1\StateLgaController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -32,6 +33,9 @@ Route::middleware('auth:sanctum')->group(function() {
     Route::apiResource('/occupant', OccupantController::class);
     Route::get('/properties-and-occupant', [OccupantController::class, 'propertiesAndOccupants']);
 
+    //fetch occupant of a space
+    Route::get('/occupant-space/{spaceId}', [OccupantController::class, 'OccupantSpace']);
+
     //property
     Route::apiResource('/property', PropertyController::class);
 
@@ -45,6 +49,12 @@ Route::middleware('auth:sanctum')->group(function() {
     //state and lga
     Route::get('/states', [StateLgaController::class, 'states']);
     Route::get('/lga/{id}', [StateLgaController::class, 'lgas']);
+
+    //Rent
+    Route::get('/rents', [RentController::class, 'index']);
+    Route::get('/rent-receipt/{rent}', [RentController::class, 'rentReceipt']);
+    Route::get('/rent-due/{date}', [RentController::class, 'rentDue']);
+    Route::post('/create-paid-rent', [RentController::class, 'store']);
 });
 
 Route::post('/login', [AuthController::class, 'login']);
