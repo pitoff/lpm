@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\Traits\ApiResponse;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Facades\DB;
 
 class RentController extends Controller
 {
@@ -26,8 +27,8 @@ class RentController extends Controller
         $data = $request->validated();
         $getSpaceAmount = Space::where('id', $data['space_id'])->value('space_price');
         $amountPaid = $data['amount_paid'];
-        $amountPerMonth = $getSpaceAmount/12;
-        $monthsCovered = ($amountPaid/$amountPerMonth) - 1;
+        $amountPerMonth = $getSpaceAmount / 12;
+        $monthsCovered = ($amountPaid / $amountPerMonth) - 1;
 
         $carbonDate = Carbon::parse($data['from']);
         $data['year'] = $carbonDate->year;
@@ -37,12 +38,11 @@ class RentController extends Controller
         $data['payment_status'] = 1;
 
         $createRent = Rent::create($data);
-        if($createRent){
+        if ($createRent) {
             return $this->success(new CreateRentResource($createRent), "Rent created successfully", 200);
-        }else{
+        } else {
             return $this->error("Could not create rent", 400);
         }
-
     }
 
     public function rentReceipt(Rent $rent)
@@ -54,11 +54,19 @@ class RentController extends Controller
         }
     }
 
-    public function rentDue(Rent $rent, $date)
+    public function rentDue($date)
     {
-        // return "good";
-        // $due = $rent->groupBy('occupant_id')->orderBy('id', 'DESC')->get();
-        $due = $rent->orderBy('id', 'ASC')->groupBy('occupant_id')->get();
-        return $this->success($due, "good", 200);
+        //last records for each occupant id
+        $lastRecords = Rent::whereIn('id', function ($query) {
+            $query->selectRaw('MAX(id)')->from('rents')->groupBy('occupant_id');
+        })->get();
+        
+        $dueArray = [];
+        foreach ($lastRecords as $value) {
+            if($value->getAttributes()['to'] < $date){
+                $dueArray[] = $value;
+            }
+        }
+        return $this->success(CreateRentResource::collection($dueArray), "good", 200);
     }
 }

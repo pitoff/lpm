@@ -50,7 +50,7 @@ const RentSlip = () => {
             <div className="flex flex-col md:flex-row md:justify-between border-b border-stroke py-4 px-6.5 dark:border-strokedark">
               <div>
                 <h3 className="flex font-medium text-black dark:text-white">
-                  <ReceiptPercentIcon className='h-6 w-6' /> Generate Receipt
+                  <ReceiptPercentIcon className='h-6 w-6' /> Payment Receipt
                 </h3>
               </div>
 
