@@ -3,6 +3,7 @@ import Breadcrumb from '../../components/Breadcrumb'
 import axiosInstance from '../../axios';
 import { ReceiptPercentIcon, PrinterIcon, EyeIcon, ListBulletIcon, CreditCardIcon, ViewfinderCircleIcon, MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 import { Link } from 'react-router-dom'
+import Loader from '../../components/Loader/Loader';
 
 const DueRent = () => {
 
@@ -20,11 +21,14 @@ const DueRent = () => {
 
   const getDueRent = async () => {
     console.log("date", date)
+    setLoading(true)
     await axiosInstance.get(`/rent-due/${date}`)
       .then(({ data }) => {
+        setLoading(false)
         console.log("data", data.data)
         setDuePaymentList(data.data)
       }).catch((err) => {
+        setLoading(false)
         console.log(err)
       })
 
@@ -99,7 +103,10 @@ const DueRent = () => {
                       Space
                     </th> */}
                     <th className="py-4 px-4 font-medium text-black dark:text-white">
-                      Last Payment
+                      Expired
+                    </th>
+                    <th className="py-4 px-4 font-medium text-black dark:text-white">
+                      Last Payment Date
                     </th>
                     <th className="py-4 px-4 font-medium text-black dark:text-white">
                       Actions
@@ -127,6 +134,9 @@ const DueRent = () => {
                         </td> */}
                         <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                           <p className="text-black dark:text-white">{list.to}</p>
+                        </td>
+                        <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+                          <p className="text-black dark:text-white">{list.paid_at}</p>
                         </td>
                         <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                           <div className="flex items-center space-x-3.5">

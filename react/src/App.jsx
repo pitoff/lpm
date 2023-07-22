@@ -35,6 +35,7 @@ import DueRent from './pages/Rent/DueRent';
 import RentSlip from './pages/Rent/RentSlip';
 import Rents from './pages/Rent/Rents';
 import RentReceipt from './pages/Rent/RentReceipt';
+import OccupantRentSlip from './pages/Rent/OccupantRentSlip';
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -64,7 +65,8 @@ function App() {
 
         <Route element={<DefaultLayout />}>
           {/* Admin/landlord */}
-          <Route element={<RequireAuth allowedRoles={[1]}/>}>
+          <Route element={<RequireAuth allowedRoles={[1]} />}>
+            <Route path="/" element={<Dashboard />} />
             <Route path="/property-type" element={<CreatePropertyType />} />
             <Route path="/create-occupants" element={<CreateOccupant />} />
             <Route path="/create-occupants/:id" element={<CreateOccupant />} />
@@ -81,20 +83,24 @@ function App() {
             <Route path="/view-paid-rent" element={<Rents />} />
             <Route path="/rent-receipt/:id" element={<RentReceipt />} />
             <Route path="/due-rent" element={<DueRent />} />
-            {/* <Route path="/rent-slip" element={<RentSlip />} /> */}
+            <Route path="/rent-slip" element={<RentSlip />} />
           </Route>
 
           {/* occupants */}
-          <Route element={<RequireAuth allowedRoles={[2]}/>}>
-            <Route path="/rent-history" element={<Dashboard />} />
+          <Route element={<RequireAuth allowedRoles={[2]} />}>
+            <Route path="/occupant-dashboard" element={<Dashboard />} />
+            <Route path="/occupant-profile" element={<Profile />} />
+            <Route path="/occupant-due-rent" element={<DueRent />} />
+            <Route path="/occupant-rent-slip" element={<OccupantRentSlip />} />
+            <Route path="/occupant-rent-receipt/:id" element={<RentReceipt />} />
           </Route>
 
           {/* Admin and occupants */}
-          <Route element={<RequireAuth allowedRoles={[1,2]}/>}>
+          {/* <Route element={<RequireAuth allowedRoles={[1, 2]} />}>
             <Route path="/" element={<Dashboard />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/rent-slip" element={<RentSlip />} />
-          </Route>
+          </Route> */}
 
           <Route path='unauthorized' element={<Unauthorized />} />
 

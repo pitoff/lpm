@@ -681,10 +681,10 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen, logout }) => {
 
                                 <ul className="mb-6 flex flex-col gap-1.5">
 
-                                    {/* <!-- Menu Item Calendar --> */}
+                                    {/* <!-- Menu Item Dashboard --> */}
                                     <li>
                                         <NavLink
-                                            to="/"
+                                            to="/occupant-dashboard"
                                             className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${(pathname === '/' || pathname.includes('dashboard')) &&
                                                 'bg-graydark dark:bg-meta-4'
                                                 }`}
@@ -717,12 +717,12 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen, logout }) => {
                                             Dashboard
                                         </NavLink>
                                     </li>
-                                    {/* <!-- Menu Item Calendar --> */}
+                                    {/* <!-- End Menu Item Dashboard --> */}
 
                                     {/* <!-- Menu Item Profile --> */}
                                     <li>
                                         <NavLink
-                                            to="/profile"
+                                            to="/occupant-profile"
                                             className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${pathname.includes('profile') && 'bg-graydark dark:bg-meta-4'
                                                 }`}
                                         >
@@ -746,12 +746,12 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen, logout }) => {
                                             Profile
                                         </NavLink>
                                     </li>
-                                    {/* <!-- Menu Item Profile --> */}
+                                    {/* <!-- End Menu Item Profile --> */}
 
-                                    {/* <!-- Menu Item Forms --> */}
+                                    {/* <!-- Menu Item Rent Module --> */}
                                     <SidebarLinkGroup
                                         activeCondition={
-                                            pathname === '/forms' || pathname.includes('forms')
+                                            pathname === '/rent' || pathname.includes('rent')
                                         }
                                     >
                                         {(handleClick, open) => {
@@ -759,8 +759,8 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen, logout }) => {
                                                 <React.Fragment>
                                                     <NavLink
                                                         to="#"
-                                                        className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${(pathname === '/forms' ||
-                                                                pathname.includes('forms')) &&
+                                                        className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${(pathname === '/rent' ||
+                                                                pathname.includes('rent')) &&
                                                             'bg-graydark dark:bg-meta-4'
                                                             }`}
                                                         onClick={(e) => {
@@ -799,7 +799,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen, logout }) => {
                                                                 fill="white"
                                                             />
                                                         </svg>
-                                                        My Apartment
+                                                        Rent
                                                         <svg
                                                             className={`absolute right-4 top-1/2 -translate-y-1/2 fill-current ${open && 'rotate-180'
                                                                 }`}
@@ -825,24 +825,24 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen, logout }) => {
                                                         <ul className="mt-4 mb-5.5 flex flex-col gap-2.5 pl-6">
                                                             <li>
                                                                 <NavLink
-                                                                    to="/forms/form-elements"
+                                                                    to="/occupant-due-rent"
                                                                     className={({ isActive }) =>
                                                                         'group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white ' +
                                                                         (isActive && '!text-white')
                                                                     }
                                                                 >
-                                                                    Pay rent
+                                                                    Due for Payment
                                                                 </NavLink>
                                                             </li>
                                                             <li>
                                                                 <NavLink
-                                                                    to="/forms/form-layout"
+                                                                    to="/occupant-rent-slip"
                                                                     className={({ isActive }) =>
                                                                         'group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white ' +
                                                                         (isActive && '!text-white')
                                                                     }
                                                                 >
-                                                                    Rent History
+                                                                    Rent Slip
                                                                 </NavLink>
                                                             </li>
                                                         </ul>
@@ -852,7 +852,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen, logout }) => {
                                             );
                                         }}
                                     </SidebarLinkGroup>
-                                    {/* <!-- Menu Item Forms --> */}
+                                    {/* <!-- Menu Item Rent Module --> */}
 
                                     <button
                                         ref={trigger}

@@ -15,13 +15,16 @@ const Rents = () => {
     }, [])
 
     const getRents = async() => {
+        setLoading(true)
         await axiosInstance.get(`rents`)
             .then(({data}) => {
+                setLoading(false)
                 console.log("data", data.data)
                 setRentList(data.data)
             })
             .catch((err) => {
                 console.log(err)
+                setLoading(false)
             })
     }
 

@@ -54,6 +54,7 @@ Route::middleware('auth:sanctum')->group(function() {
     Route::get('/rents', [RentController::class, 'index']);
     Route::get('/rent-receipt/{rent}', [RentController::class, 'rentReceipt']);
     Route::get('/rent-due/{date}', [RentController::class, 'rentDue']);
+    Route::post('/rent-payment-history', [RentController::class, 'rentPaymentHistory']);
     Route::post('/create-paid-rent', [RentController::class, 'store']);
 });
 
