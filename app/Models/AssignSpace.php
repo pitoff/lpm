@@ -21,8 +21,13 @@ class AssignSpace extends Model
         return $this->belongsTo(Space::class);
     }
 
-    // public function occupant()
-    // {
-    //     return $this->belongsTo(Occupant::class);
-    // }
+    public function property()
+    {
+        return $this->belongsTo(Property::class);
+    }
+
+    public function occupant()
+    {
+        return $this->belongsTo(Occupant::class);
+    }
 }

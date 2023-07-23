@@ -74,17 +74,14 @@ class RentController extends Controller
             return $this->success(CreateRentResource::collection($dueArray), "good", 200);
         } else {
             //last records for logged in occupant id
-            $occupantId = Occupant::where('user_id', Auth::user()->id)->select('id')->first();
-            $lastRecords = Rent::where('occupant_id', '=', $occupantId->id)->toSql();
-
-            // $dueArray = [];
-            // foreach ($lastRecords as $value) {
-            //     if ($value->getAttributes()['to'] < $date) {
-            //         $dueArray[] = $value;
-            //     }
-            // }
-            return $lastRecords;
-            return $this->success(CreateRentResource::collection($lastRecords), "good", 200);
+            $occupantId = Occupant::where('user_id', Auth::user()->id)->value('id');
+            $lastRecord = Rent::where('occupant_id', $occupantId)->latest()->first();
+            if ($lastRecord->getAttributes()['to'] < $date) {
+                return $this->success(new CreateRentResource($lastRecord), "Due payment retrieved", 200);
+            }else{
+                return $this->success("No Due payment", "No Due payment", 200);
+            }
+            
         }
     }
 

@@ -36,6 +36,8 @@ import RentSlip from './pages/Rent/RentSlip';
 import Rents from './pages/Rent/Rents';
 import RentReceipt from './pages/Rent/RentReceipt';
 import OccupantRentSlip from './pages/Rent/OccupantRentSlip';
+import OccupantDueRent from './pages/Rent/OccupantDueRent';
+import OccupantPayRent from './pages/Payment/OccupantPayRent';
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -90,7 +92,8 @@ function App() {
           <Route element={<RequireAuth allowedRoles={[2]} />}>
             <Route path="/occupant-dashboard" element={<Dashboard />} />
             <Route path="/occupant-profile" element={<Profile />} />
-            <Route path="/occupant-due-rent" element={<DueRent />} />
+            <Route path="/occupant-pay-rent" element={<OccupantPayRent />} />
+            <Route path="/occupant-due-rent" element={<OccupantDueRent />} />
             <Route path="/occupant-rent-slip" element={<OccupantRentSlip />} />
             <Route path="/occupant-rent-receipt/:id" element={<RentReceipt />} />
           </Route>

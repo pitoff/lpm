@@ -44,4 +44,9 @@ class Property extends Model
         return $this->hasMany(Space::class);
     }
 
+    public function assignSpace()
+    {
+        return $this->hasMany(AssignSpace::class);
+    }
+
 }

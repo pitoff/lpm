@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\V1\AssignSpaceController;
 use App\Http\Controllers\Api\V1\AuthController;
 use App\Http\Controllers\Api\V1\OccupantController;
+use App\Http\Controllers\Api\V1\ProfileController;
 use App\Http\Controllers\Api\V1\PropertyController;
 use App\Http\Controllers\Api\V1\PropertyTypeController;
 use App\Http\Controllers\Api\V1\RentController;
@@ -38,6 +39,9 @@ Route::middleware('auth:sanctum')->group(function() {
 
     //property
     Route::apiResource('/property', PropertyController::class);
+
+    //profile
+    Route::get('/profile-details', [ProfileController::class, 'index']);
 
     //spaces
     Route::apiResource('/space', SpaceController::class);

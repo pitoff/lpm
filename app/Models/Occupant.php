@@ -34,4 +34,9 @@ class Occupant extends Model
         return ucfirst($this->user->lastname).' '.ucfirst($this->user->firstname);
     }
 
+    public function assignSpace()
+    {
+        return $this->hasMany(AssignSpace::class);
+    }
+
 }
