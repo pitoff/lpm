@@ -38,6 +38,7 @@ import RentReceipt from './pages/Rent/RentReceipt';
 import OccupantRentSlip from './pages/Rent/OccupantRentSlip';
 import OccupantDueRent from './pages/Rent/OccupantDueRent';
 import OccupantPayRent from './pages/Payment/OccupantPayRent';
+import PaymentMethodSetup from './pages/Payment/PaymentMethodSetup';
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -86,6 +87,7 @@ function App() {
             <Route path="/rent-receipt/:id" element={<RentReceipt />} />
             <Route path="/due-rent" element={<DueRent />} />
             <Route path="/rent-slip" element={<RentSlip />} />
+            <Route path="/payment-method-settings" element={<PaymentMethodSetup />} />
           </Route>
 
           {/* occupants */}

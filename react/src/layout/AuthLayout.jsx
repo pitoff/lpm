@@ -3,10 +3,18 @@ import { Outlet, Navigate } from 'react-router-dom';
 import { useStateContext } from '../context/ContextProvider';
 
 const AuthLayout = () => {
-  const { userToken } = useStateContext()
+  const { userToken, currentUser } = useStateContext()
+  let user = ''
+  if (currentUser) {
+    user = JSON.parse(currentUser)
+  }
 
   if(userToken){
-    return <Navigate to="/" />
+    if(user.role == 2){
+      return <Navigate to="/occupant-dashboard" />
+    }else{
+      return <Navigate to="/" />
+    }
   }
 
   return (

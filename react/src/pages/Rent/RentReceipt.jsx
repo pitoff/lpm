@@ -51,7 +51,7 @@ const RentReceipt = () => {
                             </div>
                             <div className="flex justify-between mb-2">
                                 <span>Description:</span>
-                                <span className='text-left'>{receipt.space && receipt.space.space_description}</span>
+                                <span className='text-right'>{receipt.space && receipt.space.space_description}</span>
                             </div>
 
                             <div className="flex justify-between mt-2 mb-2">

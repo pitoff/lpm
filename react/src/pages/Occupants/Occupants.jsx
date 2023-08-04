@@ -101,9 +101,9 @@ const Occupants = () => {
                         <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
                           Price
                         </th>
-                        {/* <th className="py-4 px-4 font-medium text-black dark:text-white">
+                        <th className="py-4 px-4 font-medium text-black dark:text-white">
                         Actions
-                      </th> */}
+                      </th>
                       </tr>
                     </thead>
 
@@ -128,7 +128,7 @@ const Occupants = () => {
                             <p className="text-black dark:text-white">{occupant.space_price}</p>
                           </td>
 
-                          {/* <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+                          <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                             <div className="flex items-center space-x-3.5">
                               <Link to={`/create-occupants/${occupant.id}`} className="hover:text-primary">
                                 <PencilSquareIcon
@@ -137,15 +137,15 @@ const Occupants = () => {
                                 />
 
                               </Link>
-                              <button className="hover:text-primary">
+                              {/* <button className="hover:text-primary">
                                 <TrashIcon
                                   onClick={() => handleRemove(occupant.id)}
                                   className='w-6 h-6 text-danger'
                                 />
-                              </button>
+                              </button> */}
 
                             </div>
-                          </td> */}
+                          </td>
                         </tr>
                       )) : <tr>
                         <td colSpan={7} className='text-center'>

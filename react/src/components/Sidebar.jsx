@@ -348,13 +348,24 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen, logout }) => {
                                                             </li>
                                                             <li>
                                                                 <NavLink
+                                                                    to="/all-occupants"
+                                                                    className={({ isActive }) =>
+                                                                        'group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white ' +
+                                                                        (isActive && '!text-white')
+                                                                    }
+                                                                >
+                                                                    All Occupants
+                                                                </NavLink>
+                                                            </li>
+                                                            <li>
+                                                                <NavLink
                                                                     to="/occupants"
                                                                     className={({ isActive }) =>
                                                                         'group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white ' +
                                                                         (isActive && '!text-white')
                                                                     }
                                                                 >
-                                                                    View Occupants
+                                                                    Occupants & Properties
                                                                 </NavLink>
                                                             </li>
                                                             <li>

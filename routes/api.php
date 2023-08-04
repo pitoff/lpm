@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\V1\AssignSpaceController;
 use App\Http\Controllers\Api\V1\AuthController;
 use App\Http\Controllers\Api\V1\OccupantController;
+use App\Http\Controllers\Api\V1\PaymentMethodController;
 use App\Http\Controllers\Api\V1\ProfileController;
 use App\Http\Controllers\Api\V1\PropertyController;
 use App\Http\Controllers\Api\V1\PropertyTypeController;
@@ -42,6 +43,11 @@ Route::middleware('auth:sanctum')->group(function() {
 
     //profile
     Route::get('/profile-details', [ProfileController::class, 'index']);
+
+    //payment method setup
+    Route::apiResource('/payment-method', PaymentMethodController::class);
+    Route::patch('/toggle-payment-method/{id}', [PaymentMethodController::class, 'toggleActive']);
+    Route::get('/active-payment-method', [PaymentMethodController::class, 'activeMethod']);
 
     //spaces
     Route::apiResource('/space', SpaceController::class);
