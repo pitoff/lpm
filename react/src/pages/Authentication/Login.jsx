@@ -26,7 +26,7 @@ const Login = () => {
           })
           .catch((err) => {
             console.log(err)
-            // toast.error(err.response.data.message);
+            toast.error(err.response.data.message);
           });
       };
 
@@ -129,9 +129,9 @@ const Login = () => {
 
                     <div className="mt-6 text-center">
                         <p>
-                            Don’t have any account?{' '}
-                            <Link to="/auth/signup" className="text-primary">
-                                Sign Up
+                            Forgot Password?{' '}
+                            <Link to="/auth/reset-credentials" className="text-primary">
+                                Reset Password
                             </Link>
                         </p>
                     </div>

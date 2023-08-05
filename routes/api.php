@@ -69,3 +69,6 @@ Route::middleware('auth:sanctum')->group(function() {
 });
 
 Route::post('/login', [AuthController::class, 'login']);
+Route::post('/forgot-password', [AuthController::class, 'sendPasswordResetLink']);
+Route::get('/reset-login-credentials/{urt}', [AuthController::class, 'resetPassword'])->name('reset-password');
+Route::post('/reset-login-credentials', [AuthController::class, 'updateNewPass'])->name('updateCredentials');

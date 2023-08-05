@@ -39,6 +39,8 @@ import OccupantRentSlip from './pages/Rent/OccupantRentSlip';
 import OccupantDueRent from './pages/Rent/OccupantDueRent';
 import OccupantPayRent from './pages/Payment/OccupantPayRent';
 import PaymentMethodSetup from './pages/Payment/PaymentMethodSetup';
+import ResetPwd from './pages/Authentication/ResetPwd';
+import NewPwd from './pages/Authentication/NewPwd';
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -64,6 +66,8 @@ function App() {
 
         <Route element={<AuthLayout />}>
           <Route path="/auth/login" element={<Login />} />
+          <Route path="/auth/reset-credentials" element={<ResetPwd />} />
+          <Route path="/auth/reset-login-details/:token" element={<NewPwd />} />
         </Route>
 
         <Route element={<DefaultLayout />}>

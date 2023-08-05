@@ -7,6 +7,7 @@ import Loader from '../../components/Loader/Loader';
 
 const OccupantPayRent = () => {
 
+  const [copied, setCopied] = useState(false);
   const [loading, setLoading] = useState(false)
   const [data, setData] = useState({})
 
@@ -25,6 +26,16 @@ const OccupantPayRent = () => {
         console.log(err)
         setLoading(false)
       })
+  }
+
+  const copyAccNum = async () => {
+    const accNum = document.querySelector('#acc_num')
+    await accNum.select();
+    document.execCommand('copy');
+    setCopied(true)
+    setTimeout(() => {
+      setCopied(false)
+    }, 1500)
   }
 
   return (
@@ -70,20 +81,21 @@ const OccupantPayRent = () => {
                     </label>
                     <input
                       type="text"
+                      id='acc_num'
                       placeholder="Account number"
                       className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
                       value={data.acc_number}
                     />
                   </div>
 
-                  <button 
+                  <button
                     className="inline-flex items-center justify-center rounded-md border border-meta-3 py-2 px-4 text-center font-medium text-meta-3 hover:bg-opacity-90 lg:px-4 xl:px-4"
+                    onClick={copyAccNum}
                   >
                     <DocumentDuplicateIcon
-                      // onClick={() => handleRemove(method.id)}
                       className='w-6 h-6 text-success'
                     />
-                    Copy
+                    {copied ? 'Copied!' : 'Copy to Clipboard'}
                   </button>
                 </div>
               }

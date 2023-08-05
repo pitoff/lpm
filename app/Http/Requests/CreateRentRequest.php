@@ -25,6 +25,7 @@ class CreateRentRequest extends FormRequest
             'occupant_id' => 'required',
             'space_id' => 'required',
             'amount_paid' => 'required',
+            'payment_method_id' => 'required',
             'from' => 'required',
             'paid_at' => 'required',
         ];

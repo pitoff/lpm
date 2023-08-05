@@ -13,6 +13,7 @@ class Rent extends Model
         'occupant_id',
         'space_id',
         'amount_paid',
+        'payment_method_id',
         'year',
         'from',
         'to',
@@ -28,6 +29,11 @@ class Rent extends Model
     public function space()
     {
         return $this->belongsTo(Space::class);
+    }
+
+    public function paymentMethod()
+    {
+        return $this->belongsTo(PaymentMethod::class);
     }
 
     public function getAmountPaidAttribute($value)

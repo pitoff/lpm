@@ -15,4 +15,9 @@ class PaymentMethod extends Model
         'acc_name',
         'is_active'
     ];
+
+    public function rent()
+    {
+        return $this->hasMany(Rent::class);
+    }
 }
