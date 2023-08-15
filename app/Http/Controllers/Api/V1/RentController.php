@@ -35,8 +35,18 @@ class RentController extends Controller
 
         $carbonDate = Carbon::parse($data['from']);
         $data['year'] = $carbonDate->year;
-        $rentDueAt = $carbonDate->addMonths($monthsCovered);
-        $formatedRentDueAt = $rentDueAt->format('Y-m-d');
+
+        //this gives rend due at as first day of that month
+        // $rentDueAt = $carbonDate->addMonths($monthsCovered);
+        // $formatedRentDueAt = $rentDueAt->format('Y-m-d');
+
+        // Calculate the end of the month for the given date
+        $endOfMonth = $carbonDate->endOfMonth();
+        $rentDueAt = $endOfMonth->addMonths($monthsCovered);
+        // Get the last date of the month for the new calculated date
+        $lastDateOfMonth = $rentDueAt->endOfMonth();
+        $formatedRentDueAt = $lastDateOfMonth->format('Y-m-d');
+
         $data['to'] = $formatedRentDueAt;
         $data['payment_status'] = 1;
 
@@ -55,6 +65,20 @@ class RentController extends Controller
         } catch (ModelNotFoundException $e) {
             return $this->error("Receipt not found", 404);
         }
+    }
+
+    public function forwardReceipt(Rent $rent)
+    {
+        $occupantId = Rent::where('id', $rent->id)->with('occupant', function($query) {
+            $query->with('user');
+        })->first();
+        if($occupantId->occupant->user->email == ''){
+            return $this->error('User does not have email address', 404);
+        }else{
+            //send email
+            return $this->success("Email sent", "Email Successfully sent to ".$occupantId->occupant->user->email, 200);
+        }
+
     }
 
     public function rentDue($date)
@@ -78,10 +102,9 @@ class RentController extends Controller
             $lastRecord = Rent::where('occupant_id', $occupantId)->latest()->first();
             if ($lastRecord->getAttributes()['to'] < $date) {
                 return $this->success(new CreateRentResource($lastRecord), "Due payment retrieved", 200);
-            }else{
+            } else {
                 return $this->success("No Due payment", "No Due payment", 200);
             }
-            
         }
     }
 
