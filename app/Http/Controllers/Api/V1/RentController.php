@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Requests\CreateRentRequest;
 use App\Http\Resources\CreateRentResource;
+use App\Mail\sendRentReceipt;
 use App\Models\Occupant;
 use App\Models\Rent;
 use App\Models\Space;
@@ -14,6 +15,7 @@ use App\Traits\ApiResponse;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 class RentController extends Controller
 {
@@ -76,6 +78,7 @@ class RentController extends Controller
             return $this->error('User does not have email address', 404);
         }else{
             //send email
+            Mail::to($occupantId->occupant->user->email)->send(new sendRentReceipt($rent));
             return $this->success("Email sent", "Email Successfully sent to ".$occupantId->occupant->user->email, 200);
         }
 

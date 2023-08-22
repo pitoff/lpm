@@ -2,6 +2,7 @@
 
 namespace App\Mail;
 
+use App\Models\Rent;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -16,9 +17,10 @@ class sendRentReceipt extends Mailable
     /**
      * Create a new message instance.
      */
-    public function __construct()
+    public $rent;
+    public function __construct(Rent $rent)
     {
-        //
+        $this->rent = $rent;
     }
 
     /**
@@ -27,7 +29,7 @@ class sendRentReceipt extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Send Rent Receipt',
+            subject: 'Rent Receipt',
         );
     }
 
@@ -38,6 +40,14 @@ class sendRentReceipt extends Mailable
     {
         return new Content(
             markdown: 'emails.send_rent_receipt',
+            with: [
+                'occupant' => $this->rent->occupant->user->lastname.' '.$this->rent->occupant->user->firstname,
+                'spaceDescription' => $this->rent->space->space_description,
+                'amountPaid' => $this->rent->amount_paid,
+                'from' => $this->rent->from,
+                'to' => $this->rent->to,
+                'datePaid' => $this->rent->paid_at
+            ],
         );
     }
 

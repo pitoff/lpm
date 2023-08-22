@@ -36,6 +36,7 @@ const RentReceipt = () => {
     }
 
     const forwardReceipt = async() => {
+        setLoading(true)
         await axiosInstance.get(`/forward-receipt/${id}`)
             .then(({data}) => {
                 setLoading(false)

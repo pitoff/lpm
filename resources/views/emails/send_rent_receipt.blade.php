@@ -1,11 +1,17 @@
 <x-mail::message>
-# Introduction
+# Rent Receipt
 
-The body of your message.
+Hello, 
+{{$occupant}}, This is the receipt issued in respect to the rent paid on {{$datePaid}}
 
-<x-mail::button :url="''">
-Button Text
-</x-mail::button>
+<x-mail::table>
+| Details     |   Values                  |
+| :---------- | ------------------------: |
+| Space       | **{{$spaceDescription}}** |
+| Amount Paid | **{{$amountPaid }}**      |
+| From        | **{{$from }}**            |
+| To          | **{{$to}}**               |
+</x-mail::table>
 
 Thanks,<br>
 {{ config('app.name') }}
