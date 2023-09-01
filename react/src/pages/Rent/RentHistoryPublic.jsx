@@ -229,11 +229,6 @@ const RentHistoryPublic = () => {
                                                 <td className="border-b border-[#eee] py-5 px-4 pl-9 dark:border-strokedark xl:pl-11">
                                                     {index + 1}
                                                 </td>
-                                                {/* <td className="border-b border-[#eee] py-5 px-4 pl-9 dark:border-strokedark xl:pl-11">
-                                                <h5 className="font-medium text-black dark:text-white">
-                                                    {list.occupant.lastname + ' ' + list.occupant.firstname}
-                                                </h5>
-                                            </td> */}
                                                 <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                                                     <p className="text-black dark:text-white">&#x20A6;{list.amount_paid}</p>
                                                 </td>
@@ -269,7 +264,6 @@ const RentHistoryPublic = () => {
                                 </table>
 
                                 <Link
-                                    // to={`/my-rent-history`}
                                     onClick={() => {
                                         setLoading(true)
                                         setHistory('')
