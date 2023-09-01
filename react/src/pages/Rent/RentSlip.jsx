@@ -12,7 +12,7 @@ const RentSlip = () => {
     year: ''
   })
   const [value, setValue] = useState('');
-  const [loading, setLoading] = useState([]);
+  const [loading, setLoading] = useState('');
   const [historyList, setHistoryList] = useState([]);
 
   useEffect(() => {

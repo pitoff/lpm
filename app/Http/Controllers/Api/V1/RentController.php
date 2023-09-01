@@ -60,9 +60,8 @@ class RentController extends Controller
         }
     }
 
-    public function update() 
+    public function update()
     {
-        
     }
 
     public function rentReceipt(Rent $rent)
@@ -76,17 +75,16 @@ class RentController extends Controller
 
     public function forwardReceipt(Rent $rent)
     {
-        $occupantId = Rent::where('id', $rent->id)->with('occupant', function($query) {
+        $occupantId = Rent::where('id', $rent->id)->with('occupant', function ($query) {
             $query->with('user');
         })->first();
-        if($occupantId->occupant->user->email == ''){
+        if ($occupantId->occupant->user->email == '') {
             return $this->error('User does not have email address', 404);
-        }else{
+        } else {
             //send email
             Mail::to($occupantId->occupant->user->email)->send(new sendRentReceipt($rent));
-            return $this->success("Email sent", "Email Successfully sent to ".$occupantId->occupant->user->email, 200);
+            return $this->success("Email sent", "Email Successfully sent to " . $occupantId->occupant->user->email, 200);
         }
-
     }
 
     public function rentDue($date)
@@ -143,6 +141,28 @@ class RentController extends Controller
                 //throw $th;
                 return $th->getMessage();
             }
+        }
+    }
+
+    public function rentPaymentHistoryPublic(Request $request)
+    {
+        try {
+            $history = Rent::where('occupant_id', $request->occupant_id)
+                ->whereRaw("YEAR(paid_at) = ?", $request->year)
+                ->get();
+            return $this->success(CreateRentResource::collection($history), "Rent history recovered successfully", 200);
+        } catch (\Throwable $th) {
+            //throw $th;
+            return $th->getMessage();
+        }
+    }
+
+    public function rentReceiptPublic(Rent $rent)
+    {
+        try {
+            return $this->success(new CreateRentResource($rent), "Rent receipt retrieved successfully", 200);
+        } catch (ModelNotFoundException $e) {
+            return $this->error("Receipt not found", 404);
         }
     }
 }

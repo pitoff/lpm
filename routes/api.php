@@ -76,3 +76,5 @@ Route::post('/reset-login-credentials', [AuthController::class, 'updateNewPass']
 
 //list of occupants no auth
 Route::get('/occupants', [OccupantController::class, 'index']);
+Route::post('/rent-payment-history-public', [RentController::class, 'rentPaymentHistoryPublic']);
+Route::get('/rent-receipt-public/{rent}', [RentController::class, 'rentReceiptPublic']);

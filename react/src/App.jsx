@@ -41,7 +41,8 @@ import OccupantPayRent from './pages/Payment/OccupantPayRent';
 import PaymentMethodSetup from './pages/Payment/PaymentMethodSetup';
 import ResetPwd from './pages/Authentication/ResetPwd';
 import NewPwd from './pages/Authentication/NewPwd';
-import RentHistoryNoAuth from './pages/Rent/RentHistoryNoAuth';
+import RentHistoryPublic from './pages/Rent/RentHistoryPublic';
+import RentReceiptPublic from './pages/Rent/RentReceiptPublic';
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -69,7 +70,8 @@ function App() {
           <Route path="/auth/login" element={<Login />} />
           <Route path="/auth/reset-credentials" element={<ResetPwd />} />
           <Route path="/auth/reset-login-details/:token" element={<NewPwd />} />
-          <Route path="/my-rent-history" element={<RentHistoryNoAuth />} />
+          <Route path="/my-rent-history" element={<RentHistoryPublic />} />
+          <Route path="/rent-receipt-public/:id" element={<RentReceiptPublic />} />
         </Route>
 
         <Route element={<DefaultLayout />}>
