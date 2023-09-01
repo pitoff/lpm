@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import Breadcrumb from '../../components/Breadcrumb'
 import axiosInstance from '../../axios';
-import { ReceiptPercentIcon, PrinterIcon, EyeIcon, ListBulletIcon, CreditCardIcon, ViewfinderCircleIcon, MagnifyingGlassIcon } from '@heroicons/react/24/outline';
+import { ReceiptPercentIcon, PrinterIcon, EyeIcon, ListBulletIcon, CreditCardIcon, ViewfinderCircleIcon, MagnifyingGlassIcon, BellAlertIcon } from '@heroicons/react/24/outline';
 import { Link } from 'react-router-dom'
 import Loader from '../../components/Loader/Loader';
 
@@ -17,6 +17,15 @@ const DueRent = () => {
 
   const onChange = (e) => {
     setDate(e.target.value)
+  }
+
+  function formatDate(dateString) {
+    const date = new Date(dateString);
+    const day = date.getDate().toString().padStart(2, '0');
+    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Month is zero-based
+    const year = date.getFullYear();
+
+    return `${day}-${month}-${year}`;
   }
 
   const getDueRent = async () => {
@@ -39,7 +48,7 @@ const DueRent = () => {
       <Breadcrumb pageName="Due Payment" />
 
       <div className="flex">
-        <div className="w-full m-4">
+        <div className="w-full m-1">
           {/* <!-- Contact Form --> */}
           <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
             <div className="flex flex-col md:flex-row md:justify-between border-b border-stroke py-4 px-6.5 dark:border-strokedark">
@@ -135,26 +144,25 @@ const DueRent = () => {
                         <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                           <p className="text-black dark:text-white">{list.to}</p>
                         </td>
-                        <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                          <p className="text-black dark:text-white">{list.paid_at}</p>
+                        <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark text-center">
+                          <p className="text-black dark:text-white">{formatDate(list.paid_at)}</p>
                         </td>
                         <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                           <div className="flex items-center space-x-3.5">
-                            <Link to="" className="hover:text-primary">
-                              <EyeIcon
-
-                                className='w-6 h-6 text-primary'
+                            <Link to="" className="inline-flex items-center justify-center rounded-md bg-primary border border-primary py-1 px-2 text-center font-medium text-white hover:bg-opacity-90 lg:px-2 xl:px-2">
+                              <BellAlertIcon
+                                className='w-6 h-6'
                               />
-
+                                Notify
                             </Link>
 
                           </div>
                         </td>
                       </tr>
-                    )) : 
-                        <tr>
-                          <td className="text-center" colSpan={5}>No records to display</td>
-                        </tr>
+                    )) :
+                      <tr>
+                        <td className="text-center" colSpan={5}>No records to display</td>
+                      </tr>
                     }
                   </tbody>
                 }

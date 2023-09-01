@@ -18,7 +18,7 @@ const AuthLayout = () => {
   }
 
   return (
-    <div className='container mx-auto flex min-h-full items-center justify-center'>
+    <div className='container mx-auto flex h-screen items-center justify-center'>
 
         <Outlet/>
 

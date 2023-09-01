@@ -3,6 +3,6 @@
     border: "1px solid black";
 }
 .suggestion:hover{
-    border: 2px solid aquamarine;
+    border: 1px solid rgb(34, 12, 231);
     border-radius: 5px;
 }

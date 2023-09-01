@@ -101,7 +101,7 @@ const AssignSpace = () => {
 
     return (
         <>
-            <Breadcrumb pageName="Assign Space To Occupant" />
+            <Breadcrumb pageName="Assign Apartment" />
 
             <div className="flex">
                 <div className="w-full m-4">
@@ -110,12 +110,12 @@ const AssignSpace = () => {
                         <div className="flex flex-col md:flex-row md:justify-between border-b border-stroke py-4 px-6.5 dark:border-strokedark">
                             <div>
                                 <h3 className="flex font-medium text-black dark:text-white">
-                                    <PencilSquareIcon className='h-6 w-6' /> Assign Space
+                                    <PencilSquareIcon className='h-6 w-6' /> Assign Apartment to Occupant
                                 </h3>
                             </div>
 
                             <div className='my-2 md:my-0'>
-                                <Link to="/spaces">View Spaces</Link>
+                                <Link to="/spaces">View Apartments</Link>
                             </div>
                         </div>
                         {loading && <Loader />}

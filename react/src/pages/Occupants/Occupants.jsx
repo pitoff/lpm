@@ -80,7 +80,7 @@ const Occupants = () => {
           {
             Object.entries(occupantList).map(([headings, items], index) => (
               <>
-                <div className="max-w-full text-center mt-4 mb-1">{headings.toUpperCase()}</div>
+                <div className="max-w-full text-center mt-6 mb-1"><strong>{headings.toUpperCase()}</strong></div>
 
                 <div className="max-w-full overflow-x-auto">
                   <table className="w-full table-auto">

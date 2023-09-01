@@ -22,6 +22,15 @@ const RentReceipt = () => {
         getReceipt()
     }, [])
 
+    function formatDate(dateString) {
+        const date = new Date(dateString);
+        const day = date.getDate().toString().padStart(2, '0');
+        const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Month is zero-based
+        const year = date.getFullYear();
+
+        return `${day}-${month}-${year}`;
+    }
+
     const getReceipt = async () => {
         setLoading(true)
         await axiosInstance.get(`/rent-receipt/${id}`)
@@ -89,12 +98,12 @@ const RentReceipt = () => {
                             </div>
                             <div className="flex justify-between mb-2" id='detail'>
                                 <span>Paid At:</span>
-                                <span>{receipt && receipt.paid_at}</span>
+                                <span>{receipt && formatDate(receipt.paid_at)}</span>
                             </div>
                             <div className="text-center mt-4 mb-2" id='irT'>
                                 <p>
                                     <i>
-                                        This receipt is issued in respect to the rent you paid on {receipt && receipt.paid_at}
+                                        This receipt is issued in respect to the rent you paid on {receipt && formatDate(receipt.paid_at)}
                                     </i>
                                 </p>
                             </div>

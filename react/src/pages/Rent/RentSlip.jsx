@@ -26,6 +26,15 @@ const RentSlip = () => {
     years.push({ id: i })
   }
 
+  function formatDate(dateString) {
+    const date = new Date(dateString);
+    const day = date.getDate().toString().padStart(2, '0');
+    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Month is zero-based
+    const year = date.getFullYear();
+    
+    return `${day}-${month}-${year}`;
+  }
+
   const onChange = (e) => {
     setValue(e.target.value)
   }
@@ -240,7 +249,7 @@ const RentSlip = () => {
                           <p className="text-black dark:text-white">{list.to}</p>
                         </td>
                         <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                          <p className="text-black dark:text-white">{list.paid_at}</p>
+                          <p className="text-black dark:text-white">{formatDate(list.paid_at)}</p>
                         </td>
                         <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                           <div className="flex items-center space-x-3.5">                            

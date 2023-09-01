@@ -20,6 +20,14 @@ const OccupantRentSlip = () => {
         years.push({ id: i })
     }
 
+    function formatDate(dateString) {
+        const date = new Date(dateString);
+        const day = date.getDate().toString().padStart(2, '0');
+        const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Month is zero-based
+        const year = date.getFullYear();
+
+        return `${day}-${month}-${year}`;
+    }
 
     const handlePaymentHistory = async () => {
         console.log("details", details)
@@ -163,7 +171,7 @@ const OccupantRentSlip = () => {
                                                     <p className="text-black dark:text-white">{list.to}</p>
                                                 </td>
                                                 <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                                                    <p className="text-black dark:text-white">{list.paid_at}</p>
+                                                    <p className="text-black dark:text-white">{formatDate(list.paid_at)}</p>
                                                 </td>
                                                 <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                                                     <div className="flex items-center space-x-3.5">
@@ -171,7 +179,7 @@ const OccupantRentSlip = () => {
                                                             to={`/occupant-rent-receipt/${list.id}`}
                                                             className="inline-flex items-center justify-center rounded-md bg-primary border border-primary py-1 px-1 text-center font-medium text-white hover:bg-opacity-90 lg:px-2 xl:px-2"
                                                         >
-                                                            <EyeIcon className='w-5 h-5'/>
+                                                            <EyeIcon className='w-5 h-5' />
                                                             View
                                                         </Link>
                                                     </div>

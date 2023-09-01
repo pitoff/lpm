@@ -60,6 +60,11 @@ class RentController extends Controller
         }
     }
 
+    public function update() 
+    {
+        
+    }
+
     public function rentReceipt(Rent $rent)
     {
         try {

@@ -32,6 +32,15 @@ const OccupantDueRent = () => {
 
   }
 
+  function formatDate(dateString) {
+    const date = new Date(dateString);
+    const day = date.getDate().toString().padStart(2, '0');
+    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Month is zero-based
+    const year = date.getFullYear();
+    
+    return `${day}-${month}-${year}`;
+  }
+
   return (
     <>
       <Breadcrumb pageName="Due Payment" />
@@ -88,7 +97,7 @@ const OccupantDueRent = () => {
 
               {loading && <Loader />}
               {!loading && <>
-                {duePayment !== 'No Due payment' &&
+                {(duePayment) && (duePayment !== 'No Due payment') &&
                   <div className="rounded p-4 shadow">
                     <h1 className="text-2xl text-center mb-4 font-bold">Over Due Payment</h1>
 
@@ -111,7 +120,7 @@ const OccupantDueRent = () => {
                     </div>
                     <div className="flex justify-between mb-2">
                       <span>Last Payment Date:</span>
-                      <span className='text-left'>{duePayment.paid_at}</span>
+                      <span className='text-left'>{formatDate(duePayment.paid_at)}</span>
                     </div>
                     <div className="text-center mt-2 mb-2">
                       <p>
