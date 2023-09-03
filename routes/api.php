@@ -34,6 +34,7 @@ Route::middleware('auth:sanctum')->group(function() {
     //occupant
     Route::apiResource('/occupant', OccupantController::class);
     Route::get('/properties-and-occupant', [OccupantController::class, 'propertiesAndOccupants']);
+    Route::post('/properties-and-occupant-report', [OccupantController::class, 'propertiesAndOccupantsReport']);
 
     //fetch occupant of a space
     Route::get('/occupant-space/{spaceId}', [OccupantController::class, 'OccupantSpace']);

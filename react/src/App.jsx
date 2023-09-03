@@ -43,6 +43,7 @@ import ResetPwd from './pages/Authentication/ResetPwd';
 import NewPwd from './pages/Authentication/NewPwd';
 import RentHistoryPublic from './pages/Rent/RentHistoryPublic';
 import RentReceiptPublic from './pages/Rent/RentReceiptPublic';
+import OccupantsReport from './pages/Occupants/OccupantsReport';
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -82,6 +83,7 @@ function App() {
             <Route path="/create-occupants" element={<CreateOccupant />} />
             <Route path="/create-occupants/:id" element={<CreateOccupant />} />
             <Route path="/occupants" element={<Occupants />} />
+            <Route path="/all-occupants" element={<OccupantsReport />} />
             <Route path="/create-property" element={<CreateProperty />} />
             <Route path="/properties" element={<Properties />} />
             <Route path='/property-edit/:id' element={<CreateProperty />} />

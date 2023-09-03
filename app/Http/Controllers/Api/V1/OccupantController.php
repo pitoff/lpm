@@ -27,14 +27,45 @@ class OccupantController extends Controller
 
     public function propertiesAndOccupants()
     {
-        $occupants = Occupant::leftJoin('assign_spaces', 'assign_spaces.occupant_id', 'occupants.id')
+        $occupants = Occupant::join('assign_spaces', 'assign_spaces.occupant_id', 'occupants.id')
         ->leftJoin('properties', 'properties.id', 'assign_spaces.property_id')
         ->leftJoin('users', 'users.id', 'occupants.user_id')
         ->leftJoin('spaces', 'spaces.property_id', 'assign_spaces.property_id')
         ->where('assign_spaces.assign_status', 1)
         ->select('occupants.*', 'p_name', 'firstname', 'lastname', 'space_name', 'space_price')->get();
 
-        return response()->json(["data" => $occupants] ,200);
+        // return response()->json(["data" => $occupants] ,200);
+        return $this->success($occupants, "properties and occupants", 200);
+    }
+
+    public function propertiesAndOccupantsReport(Request $request)
+    {
+        $name = $request->name;
+        $property = $request->property;
+
+        $occupants = Occupant::join('assign_spaces', 'assign_spaces.occupant_id', 'occupants.id')
+        ->leftJoin('properties', 'properties.id', 'assign_spaces.property_id')
+        ->leftJoin('users', 'users.id', 'occupants.user_id')
+        ->leftJoin('spaces', 'spaces.property_id', 'assign_spaces.property_id')
+        ->where('assign_spaces.assign_status', 1)
+        // ->when($name, function ($query, string $name) {
+        //     $query->where('users.lastname', 'LIKE', "%$name%");
+        //     $query->orWhere('users.firstname', 'LIKE', "%$name%");
+        // })
+        //to use orwhere it has to be nested like so
+        ->when($name, function ($query, string $name) {
+            $query->where(function ($subquery) use ($name) {
+                $subquery->where('users.lastname', 'LIKE', "%$name%");
+                $subquery->orWhere('users.firstname', 'LIKE', "%$name%");
+            });
+        })
+        ->when($property, function ($query, string $property) {
+            $query->where('properties.id', $property);
+        })
+        ->select('occupants.*', 'p_name', 'firstname', 'lastname', 'space_name', 'space_price')
+        ->paginate(1);
+
+        return $this->success($occupants, "properties and occupants", 200);
     }
 
     public function store(OccupantRequest $request)
@@ -144,4 +175,5 @@ class OccupantController extends Controller
         file_put_contents($relativePath, $image);
         return $relativePath;
     }
+
 }
