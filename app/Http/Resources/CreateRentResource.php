@@ -22,12 +22,31 @@ class CreateRentResource extends JsonResource
             'space' => $this->space,
             'property' => $this->space->property,
             'amount_paid' => $this->amount_paid,
+            'originalAmountPaid' => $this->originalAmountAttribute(),
             'year' => $this->year,
             'from' => $this->from,
-            // 'from_month' => $this->getFromAttribute($this->from),
+            'originalFrom' => $this->originalFromAttribute(),
             'to' => $this->to,
-            // 'to_month' => $this->getToAttribute($this->to),
+            // 'originalTo' => $this->originalToAttribute(),
             'paid_at' => $this->paid_at,
+            'payment_method_id' => $this->payment_method_id
         ];
     }
+
+    protected function originalFromAttribute()
+    {
+        // Retrieve the original (unmodified) attribute value
+        return $this->resource->getRawOriginal('from');
+    }
+
+    // protected function originalToAttribute()
+    // {
+    //     return $this->resource->getRawOriginal('to');
+    // }
+
+    protected function originalAmountAttribute()
+    {
+        return $this->resource->getRawOriginal('amount_paid');
+    }
+
 }

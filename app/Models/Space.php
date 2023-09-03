@@ -14,6 +14,7 @@ class Space extends Model
         'space_name',
         'space_description',
         'space_price',
+        'monthly_price',
         'space_status'
     ];
 

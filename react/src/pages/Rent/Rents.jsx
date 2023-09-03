@@ -108,7 +108,7 @@ const Rents = () => {
 
                                                 </Link>
 
-                                                <Link to={`/rent-receipt/${rent.id}`} className="hover:text-primary">
+                                                <Link to={`/create-paid-rent/${rent.id}`} className="hover:text-primary">
                                                     <PencilSquareIcon
                                                         className='w-6 h-6 text-success'
                                                     />

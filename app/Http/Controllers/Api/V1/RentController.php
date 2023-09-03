@@ -27,6 +27,11 @@ class RentController extends Controller
         return $this->success(CreateRentResource::collection($rents), "Rents recovered successfully", 200);
     }
 
+    public function show(Rent $rent)
+    {
+        return $this->success(new CreateRentResource($rent), "Rent data", 200);
+    }
+
     public function store(CreateRentRequest $request)
     {
         $data = $request->validated();
@@ -62,6 +67,7 @@ class RentController extends Controller
 
     public function update()
     {
+
     }
 
     public function rentReceipt(Rent $rent)

@@ -93,6 +93,7 @@ function App() {
             <Route path="/property-spaces/:id/:p_name" element={<PropertySpaceList />} />
             <Route path="/assign-space" element={<AssignSpace />} />
             <Route path="/create-paid-rent" element={<CreateRent />} />
+            <Route path="/create-paid-rent/:id" element={<CreateRent />} />
             <Route path="/view-paid-rent" element={<Rents />} />
             <Route path="/rent-receipt/:id" element={<RentReceipt />} />
             <Route path="/due-rent" element={<DueRent />} />

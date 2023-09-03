@@ -12,7 +12,9 @@ class Rent extends Model
     public $fillable = [
         'occupant_id',
         'space_id',
+        'space_amount',
         'amount_paid',
+        'remaining',
         'payment_method_id',
         'year',
         'from',

@@ -50,7 +50,7 @@ export const PaginationLinks = ({ meta, onPageClick }) => {
                   key={ind}
                   aria-current="page"
                   className={"relative z-10 inline-flex items-center border px-4 py-2 text-sm font-medium focus:z-20 hover:bg-gray-50 "
-                    + (ind === 0 ? 'rounded-l-md' : '') + (ind === meta.links.length - 1 ? 'rounded-r-md' : '') + (link.active ? 'border-indigo-500 text-indigo-600 bg-indigo-50' : 'border-gray-300')}
+                    + (ind === 0 ? 'rounded-l-md' : '') + (ind === meta.links.length - 1 ? 'rounded-r-md' : '') + (link.active ? 'border-primary border-2 text-primary' : 'border-gray-300')}
                   dangerouslySetInnerHTML={{ __html: link.label }}
                 >
                   {/* {link.label} */}

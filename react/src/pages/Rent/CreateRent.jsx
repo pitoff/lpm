@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import Breadcrumb from '../../components/Breadcrumb'
 import { PencilSquareIcon, PhotoIcon, PlusIcon, TrashIcon } from '@heroicons/react/24/outline';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import Loader from '../../components/Loader/Loader';
 import axiosInstance from '../../axios';
 import { toast } from 'react-toastify';
 
 const CreateRent = () => {
 
+    const { id } = useParams()
     const [loading, setLoading] = useState(false)
     const [propertyList, setPropertyList] = useState([]);
     const [paymentBanks, setPaymentBanks] = useState([]);
@@ -25,6 +26,25 @@ const CreateRent = () => {
     })
 
     useEffect(() => {
+        if (id) {
+            setLoading(true)
+            axiosInstance.get(`/rents/${id}`)
+                .then(({ data }) => {
+                    console.log("data", data)
+                    getPropertySpaces(data.data.property.id)
+                    setOccupant(data.data.occupant)
+                    setRentData({
+                        property_id: data.data.property.id,
+                        space_id: data.data.space.id,
+                        occupant_id: data.data.occupant_id,
+                        amount_paid: data.data.originalAmountPaid,
+                        payment_method_id: data.data.payment_method_id,
+                        from: data.data.originalFrom,
+                        paid_at: data.data.paid_at,
+                    })
+                    setLoading(false)
+                })
+        }
         getProperties()
         getPaymentBanks()
     }, [])
@@ -88,7 +108,7 @@ const CreateRent = () => {
 
     return (
         <>
-            <Breadcrumb pageName="Create Rent" />
+            <Breadcrumb pageName={id ? "Edit Rent" : "Create Rent"} />
 
             <div className="flex">
                 <div className="w-full m-4">
@@ -97,12 +117,12 @@ const CreateRent = () => {
                         <div className="flex flex-col md:flex-row md:justify-between border-b border-stroke py-4 px-6.5 dark:border-strokedark">
                             <div>
                                 <h3 className="flex font-medium text-black dark:text-white">
-                                    <PencilSquareIcon className='h-6 w-6' /> Create Paid Rent
+                                    <PencilSquareIcon className='h-6 w-6' /> {id ? `Edit Paid Rent` : `Create Paid Rent`}
                                 </h3>
                             </div>
 
                             <div className='my-2 md:my-0'>
-                                <Link to="/spaces">Due Rent</Link>
+                                <Link to="/view-paid-rent">View Rent</Link>
                             </div>
                         </div>
                         {loading && <Loader />}
@@ -239,14 +259,14 @@ const CreateRent = () => {
 
                                         <div className="w-full">
                                             <label className="mb-3 block text-black dark:text-white">
-                                               Bank Paid To
+                                                Bank Paid To
                                             </label>
                                             <div className="relative z-20 bg-white dark:bg-form-input">
 
                                                 <select className="relative z-20 w-full appearance-none rounded border border-stroke bg-transparent py-3 px-3 outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input"
                                                     value={rentData.payment_method_id}
                                                     onChange={(e) => {
-                                                        setRentData({...rentData, payment_method_id:e.target.value})
+                                                        setRentData({ ...rentData, payment_method_id: e.target.value })
                                                     }}
                                                 >
                                                     <option value="">Select...</option>
@@ -314,7 +334,7 @@ const CreateRent = () => {
                                     </div>
 
                                     <button type='submit' className="flex justify-center rounded bg-primary px-4 py-2 font-medium text-gray">
-                                        Save
+                                        {id ? `Update` : `Save`}
                                     </button>
                                 </div>
                             </form>

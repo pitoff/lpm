@@ -63,7 +63,7 @@ class OccupantController extends Controller
             $query->where('properties.id', $property);
         })
         ->select('occupants.*', 'p_name', 'firstname', 'lastname', 'space_name', 'space_price')
-        ->paginate(1);
+        ->paginate(20);
 
         return $this->success($occupants, "properties and occupants", 200);
     }
