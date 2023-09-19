@@ -103,6 +103,7 @@ const CreateRent = () => {
                 navigate('/view-paid-rent')
             }).catch((err) => {
                 setLoading(false)
+                toast.error(err.response.data.message)
             })
     }
 

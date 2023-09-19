@@ -34,35 +34,20 @@ class RentController extends Controller
 
     public function store(CreateRentRequest $request)
     {
-        /**
-         * NB: check whether the amount paid can be evenly distributed
-         * 
-         * NB: create additional payment table, with the rentId, description and amount
-         * 
-         * check if rent exist for occupant
-         * false ?
-         *  create rent, fetch space amount, calc duration and insert into
-         *  rents table (amount paid, space_amount, remaining)
-         * true ?
-         *  check whether remaining amount is 0
-         *  if !0 do your calculation with the remaining and amount paid
-         *  but if 0 fetch the current space amount from space table and start new rent cycle
-         * 
-         */
-
         $data = $request->validated();
         $getSpaceAmount = Space::where('id', $data['space_id'])->value('space_price');
         $amountPaid = $data['amount_paid'];
+
+        if($getSpaceAmount % $amountPaid !== 0){
+            return $this->error('Please amount must be even...', 400);
+        }
+
+        //check if from already fall between a date in the rents table
+
         $amountPerMonth = $getSpaceAmount / 12;
         $monthsCovered = ($amountPaid / $amountPerMonth) - 1;
-
         $carbonDate = Carbon::parse($data['from']);
         $data['year'] = $carbonDate->year;
-
-        //this gives rend due at as first day of that month
-        // $rentDueAt = $carbonDate->addMonths($monthsCovered);
-        // $formatedRentDueAt = $rentDueAt->format('Y-m-d');
-
         // Calculate the end of the month for the given date
         $endOfMonth = $carbonDate->endOfMonth();
         $rentDueAt = $endOfMonth->addMonths($monthsCovered);
@@ -72,13 +57,28 @@ class RentController extends Controller
 
         $data['to'] = $formatedRentDueAt;
         $data['payment_status'] = 1;
-
-        $createRent = Rent::create($data);
-        if ($createRent) {
-            return $this->success(new CreateRentResource($createRent), "Rent created successfully", 200);
-        } else {
-            return $this->error("Could not create rent", 400);
+        $data['space_amount'] = $getSpaceAmount;
+        $data['remaining'] = $getSpaceAmount - $amountPaid;
+        
+        $existingRent = Rent::where('occupant_id', $data['occupant_id'])->orderBy('id', 'desc')->first(); //check for existing rent
+        if($existingRent){
+            if($existingRent->remaining == 0){
+                $createRent = Rent::create($data);
+                if($createRent)
+                    return $this->success(new CreateRentResource($createRent), "Rent created successfully", 200);
+            }else{
+                $oldBalance = $existingRent->remaining;
+                $data['remaining'] = $oldBalance - $amountPaid;
+                $createRent = Rent::create($data);
+                if($createRent)
+                    return $this->success(new CreateRentResource($createRent), "Rent created successfully", 200);
+            }
+        }else{
+            $createRent = Rent::create($data);
+            if($createRent)
+                return $this->success(new CreateRentResource($createRent), "Rent created successfully", 200);
         }
+
     }
 
     public function update()
