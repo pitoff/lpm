@@ -3,6 +3,7 @@ import axiosInstance from '../../axios';
 import { ArrowLeftIcon, ListBulletIcon, } from '@heroicons/react/24/outline';
 import { Link } from 'react-router-dom'
 import Loader from '../../components/Loader/Loader';
+import { toast } from 'react-toastify';
 
 const RentHistoryPublic = () => {
     const [loading, setLoading] = useState('');
@@ -54,7 +55,10 @@ const RentHistoryPublic = () => {
     const getHistory = async (e) => {
         e.preventDefault()
         setLoading(true)
-        console.log("data", details)
+        if(details.occupant_id == '' || details.year == ''){
+            setLoading(false)
+            return toast.error('fill in required fields...')
+        }
         await axiosInstance.post(`/rent-payment-history-public`, details)
             .then(({ data }) => {
                 setLoading(false)

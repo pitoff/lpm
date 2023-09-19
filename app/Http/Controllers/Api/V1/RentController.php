@@ -34,6 +34,22 @@ class RentController extends Controller
 
     public function store(CreateRentRequest $request)
     {
+        /**
+         * NB: check whether the amount paid can be evenly distributed
+         * 
+         * NB: create additional payment table, with the rentId, description and amount
+         * 
+         * check if rent exist for occupant
+         * false ?
+         *  create rent, fetch space amount, calc duration and insert into
+         *  rents table (amount paid, space_amount, remaining)
+         * true ?
+         *  check whether remaining amount is 0
+         *  if !0 do your calculation with the remaining and amount paid
+         *  but if 0 fetch the current space amount from space table and start new rent cycle
+         * 
+         */
+
         $data = $request->validated();
         $getSpaceAmount = Space::where('id', $data['space_id'])->value('space_price');
         $amountPaid = $data['amount_paid'];
@@ -67,7 +83,6 @@ class RentController extends Controller
 
     public function update()
     {
-
     }
 
     public function rentReceipt(Rent $rent)

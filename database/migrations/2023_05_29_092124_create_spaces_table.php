@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('space_name');
             $table->longText('space_description');
             $table->string('space_price');
+            $table->string('monthly_price')->nullable();
             $table->integer('space_status');
             $table->timestamps();
         });
