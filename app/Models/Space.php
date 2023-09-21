@@ -14,7 +14,8 @@ class Space extends Model
         'space_name',
         'space_description',
         'space_price',
-        'space_status'
+        'monthly_price',
+        'space_status',
     ];
 
     public function spaceStatus()

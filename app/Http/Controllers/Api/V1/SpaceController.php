@@ -95,7 +95,14 @@ class SpaceController extends Controller
     public function update(Space $space, UpdateSpaceRequest $request)
     {
         try {
-            $space->update($request->validated());
+            $data = $request->validated();
+            $months = 12;
+            $monthly_price = ($data['space_price'] / $months);
+            if (is_float($monthly_price)) {
+                $monthly_price = round($monthly_price);
+            }
+            $data['monthly_price'] = $monthly_price;
+            $space->update($data);
             return $this->success(new SpaceResource($space), "space updated", 200);
         } catch (\Throwable $th) {
             //throw $th;

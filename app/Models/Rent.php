@@ -13,6 +13,7 @@ class Rent extends Model
         'occupant_id',
         'space_id',
         'space_amount',
+        'monthly_price',
         'amount_paid',
         'remaining',
         'payment_method_id',

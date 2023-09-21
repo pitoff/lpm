@@ -76,6 +76,8 @@ const CreateRent = () => {
                 console.log("occupant", data.data)
                 setOccupant(data.data)
                 setRentData({ ...rentData, occupant_id: data.data.id, space_id: id })
+
+                //then get the last to rent paid if there is existing rent on the table
             }).catch((err) => {
                 console.log(err)
             })
@@ -194,7 +196,9 @@ const CreateRent = () => {
                                                     <option value="">Select...</option>
 
                                                     {spaceList.map((list) => (
-                                                        <option key={list.id} value={list.id}>{list.space_name} - ({list.space_price})</option>
+                                                        <option key={list.id} value={list.id}>{list.space_name} 
+                                                        {/* - ({list.space_price}) */}
+                                                        </option>
                                                     ))}
 
                                                 </select>

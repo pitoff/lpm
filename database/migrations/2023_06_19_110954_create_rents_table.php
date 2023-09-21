@@ -17,6 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('space_id')->nullable();
             $table->foreign('space_id')->references('id')->on('spaces');
             $table->integer('space_amount');
+            $table->integer('monthly_price');
             $table->integer('amount_paid');
             $table->integer('remaining');
             $table->foreignId('payment_method_id')->constrained();

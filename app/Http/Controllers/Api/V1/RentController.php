@@ -9,6 +9,7 @@ use App\Models\Occupant;
 use App\Models\Rent;
 use App\Models\Space;
 use App\Models\User;
+use App\Services\RentService;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\Traits\ApiResponse;
@@ -20,6 +21,13 @@ use Illuminate\Support\Facades\Mail;
 class RentController extends Controller
 {
     use ApiResponse;
+
+    protected $rentService;
+
+    public function __construct(RentService $rentService)
+    {
+        $this->rentService = $rentService;
+    }
 
     public function index()
     {
@@ -34,49 +42,21 @@ class RentController extends Controller
 
     public function store(CreateRentRequest $request)
     {
-        $data = $request->validated();
-        $getSpaceAmount = Space::where('id', $data['space_id'])->value('space_price');
-        $amountPaid = $data['amount_paid'];
-
-        if($getSpaceAmount % $amountPaid !== 0){
-            return $this->error('Please amount must be even...', 400);
-        }
-
-        //check if from already fall between a date in the rents table
-
-        $amountPerMonth = $getSpaceAmount / 12;
-        $monthsCovered = ($amountPaid / $amountPerMonth) - 1;
-        $carbonDate = Carbon::parse($data['from']);
-        $data['year'] = $carbonDate->year;
-        // Calculate the end of the month for the given date
-        $endOfMonth = $carbonDate->endOfMonth();
-        $rentDueAt = $endOfMonth->addMonths($monthsCovered);
-        // Get the last date of the month for the new calculated date
-        $lastDateOfMonth = $rentDueAt->endOfMonth();
-        $formatedRentDueAt = $lastDateOfMonth->format('Y-m-d');
-
-        $data['to'] = $formatedRentDueAt;
-        $data['payment_status'] = 1;
-        $data['space_amount'] = $getSpaceAmount;
-        $data['remaining'] = $getSpaceAmount - $amountPaid;
-        
-        $existingRent = Rent::where('occupant_id', $data['occupant_id'])->orderBy('id', 'desc')->first(); //check for existing rent
-        if($existingRent){
-            if($existingRent->remaining == 0){
-                $createRent = Rent::create($data);
-                if($createRent)
-                    return $this->success(new CreateRentResource($createRent), "Rent created successfully", 200);
-            }else{
-                $oldBalance = $existingRent->remaining;
-                $data['remaining'] = $oldBalance - $amountPaid;
-                $createRent = Rent::create($data);
-                if($createRent)
-                    return $this->success(new CreateRentResource($createRent), "Rent created successfully", 200);
-            }
-        }else{
-            $createRent = Rent::create($data);
-            if($createRent)
-                return $this->success(new CreateRentResource($createRent), "Rent created successfully", 200);
+        $result = $this->rentService->storeRent($request);
+        // return $result;
+        switch($result){
+            case "amount_err":
+                return $this->error('Please amount must be even...', 400);
+                break;
+            case "date_err":
+                return $this->error('Rent already exist for this period', 400);
+                break;
+            case $result['create_success'] == true:
+                return $this->success(new CreateRentResource($result['created']), "Rent created successfully", 200);
+                break;
+            case $result['create_success'] == false:
+                return $this->error("Rent could not be created", 400);
+                break;
         }
 
     }
