@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Requests\CreatePropertyRequest;
 use App\Http\Resources\CreatePropertyResource;
+use App\Http\Resources\PropertySpaceAndOccupantResource;
 use App\Models\Property;
 use Illuminate\Http\Request;
 use App\Traits\ApiResponse;
@@ -46,6 +47,16 @@ class PropertyController extends Controller
         }
     }
 
+    //should return property as grand parent, space as parent, and list of past and current occupants as children
+    public function propertySpaceAndOccupant(Property $property){
+        try {
+            return $this->success(new PropertySpaceAndOccupantResource($property), "property space and occupant", 200);
+        } catch (\Throwable $th) {
+            //throw $th;
+            return $this->error($th->getMessage(), 404);
+        }
+    }
+
     public function update(CreatePropertyRequest $request, Property $property)
     {
         $data = $request->validated();
@@ -62,9 +73,14 @@ class PropertyController extends Controller
         return $this->success(new CreatePropertyResource($property), "property updated", 200);
     }
 
-    public function destroy(string $id)
+    public function destroy(Property $property)
     {
-        //
+        try {
+            $property->delete();
+            return $this->success("", "property deleted", 200);
+        } catch (\Exception $e) {
+            return $this->error($e->getMessage(), 400);
+        }
     }
 
     private function saveImage($image)

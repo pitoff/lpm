@@ -38,9 +38,9 @@ class PropertySeeder extends Seeder
             ],
             [
                 'property_type_id' => 3,
-                'p_name' => "Nwalie's Shopping Plaza",
+                'p_name' => "Nwalie's Shop",
                 'num_of_space' => 1,
-                'p_desc' => "Bungalow consisting of different rooms for business",
+                'p_desc' => "A Bungalow consisting of different spaces rented for business purposes",
                 'state_id' => 4,
                 'lga_id' => 74,
                 'p_city' => "Amaenyi Awka Town",

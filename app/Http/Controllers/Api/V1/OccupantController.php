@@ -25,6 +25,7 @@ class OccupantController extends Controller
         return $this->success(OccupantResource::collection($occupants), "list of occupants", 200);
     }
 
+    //to get active occupant on a property space
     public function propertiesAndOccupants()
     {
         $occupants = Occupant::join('assign_spaces', 'assign_spaces.occupant_id', 'occupants.id')
@@ -38,6 +39,7 @@ class OccupantController extends Controller
         return $this->success($occupants, "properties and occupants", 200);
     }
 
+    //report for all occupants and property
     public function propertiesAndOccupantsReport(Request $request)
     {
         $name = $request->name;

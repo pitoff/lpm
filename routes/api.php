@@ -41,6 +41,7 @@ Route::middleware('auth:sanctum')->group(function() {
 
     //property
     Route::apiResource('/property', PropertyController::class);
+    Route::get('/property-space-and-occupant/{property}', [PropertyController::class, 'propertySpaceAndOccupant']);
 
     //profile
     Route::get('/profile-details', [ProfileController::class, 'index']);

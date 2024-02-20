@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('properties', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('property_type_id');
+            $table->foreign('property_type_id')->references('id')->on('property_types');
             $table->string('p_name');
             $table->integer('num_of_space');
             $table->longText('p_desc');

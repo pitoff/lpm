@@ -28,6 +28,20 @@ const Properties = () => {
         })
     }
 
+    const handleRemove = async (id) => {
+        setLoading(true)
+        await axiosInstance.delete(`property/${id}`)
+            .then((res) => {
+                setLoading(false)
+                toast.success(res.data.message)
+                setPropertyList(propertyList.filter((data) => data.id !== id))
+            }).catch((err) => {
+                setLoading(false)
+                toast.error(err.response.data.status)
+                console.log(err)
+            })
+    }
+
     return (
         <>
             <Breadcrumb pageName="My Properties" />
@@ -110,7 +124,7 @@ const Properties = () => {
                                                 </Link>
                                                 <button className="hover:text-primary">
                                                     <TrashIcon
-                                                        // onClick={() => handleRemove(occupant.id)}
+                                                        onClick={() => handleRemove(property.id)}
                                                         className='w-6 h-6 text-danger'
                                                     />
                                                 </button>

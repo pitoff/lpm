@@ -98,6 +98,7 @@ const CreatePropertyType = () => {
                 setPropertyTypes(propertyTypes.filter((type) => type.id !== id))
             }).catch((err) => {
                 setLoading(false)
+                toast.error(err.response.data.status)
                 console.log(err)
             })
     }

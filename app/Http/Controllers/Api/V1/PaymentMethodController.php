@@ -15,6 +15,31 @@ class PaymentMethodController extends Controller
     /**
      * Display a listing of the resource.
      */
+
+
+    /**
+     * @OA\Get(
+     *      path="/payment-method",
+     *      operationId="getPaymentMethods",
+     *      tags={"Payment Methods"},
+     *      summary="List of payment method",
+     *      description="Returns list of available payment method",
+     *      security={ {"bearer_token": {} }},
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *          @OA\JsonContent(ref="#/components/schemas/PropertyTypeResource")
+     *       ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      )
+     *     )
+     */ 
     public function index()
     {
         $paymentMethods = PaymentMethod::all();

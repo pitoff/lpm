@@ -17,8 +17,8 @@ return new class extends Migration
             $table->foreign('property_id')->references('id')->on('properties');
             $table->string('space_name');
             $table->longText('space_description');
-            $table->string('space_price');
-            $table->string('monthly_price');
+            $table->double('space_price');
+            $table->double('monthly_price');
             $table->integer('space_status');
             $table->timestamps();
         });

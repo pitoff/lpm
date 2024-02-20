@@ -68,12 +68,12 @@ class SpaceController extends Controller
             $months = 12;
 
             foreach ($newData as $data) {
-                $monthly_price = ($data['space_price'] / $months);
-                if (is_float($monthly_price)) {
-                    // return $this->error(' Amount must be even ', 400);
-                    // Round the monthly_price to the nearest integer
-                    $monthly_price = round($monthly_price);
-                }
+                $monthly_price = round($data['space_price'] / $months, 2);
+                // if (is_float($monthly_price)) {
+                //     // return $this->error(' Amount must be even ', 400);
+                //     // Round the monthly_price to the nearest integer
+                //     $monthly_price = round($monthly_price);
+                // }
                 $data['created_at'] = $currentDateTime;
                 $data['updated_at'] = $currentDateTime;
                 $data['monthly_price'] = $monthly_price;
@@ -97,10 +97,10 @@ class SpaceController extends Controller
         try {
             $data = $request->validated();
             $months = 12;
-            $monthly_price = ($data['space_price'] / $months);
-            if (is_float($monthly_price)) {
-                $monthly_price = round($monthly_price);
-            }
+            $monthly_price = round($data['space_price'] / $months, 2);
+            // if (is_float($monthly_price)) {
+            //     $monthly_price = round($monthly_price);
+            // }
             $data['monthly_price'] = $monthly_price;
             $space->update($data);
             return $this->success(new SpaceResource($space), "space updated", 200);
